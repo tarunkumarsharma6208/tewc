@@ -88,12 +88,23 @@ AUTH_USER_MODEL = 'accounts.CustomUser'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'tewc',
+#         'USER': 'postgres',
+#         'PASSWORD': '12345',
+#         'HOST': 'localhost',
+#         'PORT': '5432'
+#     }
+# }
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'tewc',
         'USER': 'postgres',
-        'PASSWORD': '12345',
+        'PASSWORD': 'tewcdbs@1234',
         'HOST': 'localhost',
         'PORT': '5432'
     }
