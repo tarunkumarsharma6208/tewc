@@ -19,16 +19,17 @@ class City(models.Model):
 class Address(models.Model):
     address_type = models.CharField(max_length=10, choices=ADDRESS_TYPE, default='home')
     state = models.ForeignKey(State, on_delete=models.CASCADE)
-    destrict = models.ForeignKey(District, on_delete=models.CASCADE)
+    district = models.ForeignKey(District, on_delete=models.CASCADE)
     city = models.ForeignKey(City, on_delete=models.CASCADE)
     pincode = models.CharField(max_length=8, null=True)
     address = models.TextField(null=True)
 
 
 class CustomUser(AbstractUser):
-    state = models.ForeignKey(State, on_delete=models.CASCADE)
-    destrict = models.ForeignKey(District, on_delete=models.CASCADE)
-    city = models.ForeignKey(City, on_delete=models.CASCADE)
-    address = models.TextField(null=True)
+    address = models.ForeignKey(Address, on_delete=models.CASCADE, null=True, blank=True)
     dob = models.DateField(null=True, blank=True)
     role = models.CharField(max_length=10, choices=ROLES, default='customer')
+    mobile = models.CharField(max_length=10, null=True)
+
+    class Meta:
+        verbose_name_plural='CustomUser'

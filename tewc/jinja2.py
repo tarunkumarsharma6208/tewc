@@ -6,6 +6,7 @@ from django.conf import settings
 from django.apps import apps
 from django_middleware_global_request.middleware import get_request
 from django.utils import timezone
+from store.models import Category
 
 
 def naturaltime(value):
@@ -46,6 +47,12 @@ def get_base_url():
 	except Exception as e:
 		print(e)
 		return settings.BASE_URL
+	
+def global_context():
+	d = {}
+	d['category_all'] = Category.objects.all()
+	print(Category.objects.all())
+	return d
 
 
 def environment(**options):
@@ -54,7 +61,8 @@ def environment(**options):
 		'static': staticfiles_storage.url,
 		'url'	: reverse,
 		'get_base_url': get_base_url,
-		'filter': getter_multiple_obj
+		'filter': getter_multiple_obj,
+		'global_context': global_context
 	})
 	
 	env.filters['naturaltime'] = naturaltime	
