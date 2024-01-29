@@ -1,6 +1,13 @@
-/migrations
-.env
-/env
-/venv
+# .gitignore
 
-/__pycache__
+# Ignore virtual environment
+venv/
+
+# Ignore Django migration files
+**/migrations/
+
+# Ignore local settings
+.env
+
+# Ignore compiled Python files
+*.pyc
