@@ -16,15 +16,21 @@ import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+import environ
 
+env = environ.Env()
+environ.Env.read_env()
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-05r**%)l4*&oei=fte5#mz59+2!_b$2q(7a0%izc^n^c24c_ro'
+# SECRET_KEY = 'django-insecure-05r**%)l4*&oei=fte5#mz59+2!_b$2q(7a0%izc^n^c24c_ro'
+
+SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# DEBUG = True
+DEBUG = env('DEBUG', default=False)
 
 ALLOWED_HOSTS = ['*']
 
@@ -99,18 +105,21 @@ AUTH_USER_MODEL = 'accounts.CustomUser'
 #     }
 # }
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'tewc',
-        'USER': 'postgres',
-        # 'PASSWORD': 'tewcdbs@1234',
-        'PASSWORD': '12345',
-        'HOST': 'localhost',
-        'PORT': '5432'
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'tewc',
+#         'USER': 'postgres',
+#         # 'PASSWORD': 'tewcdbs@1234',
+#         'PASSWORD': '12345',
+#         'HOST': 'localhost',
+#         'PORT': '5432'
+#     }
+# }
 
+DATABASES = {
+    'default': env.db('DATABASE_URL'),
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
