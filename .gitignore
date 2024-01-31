@@ -11,3 +11,6 @@ venv/
 
 # Ignore compiled Python files
 *.pyc
+*.pyc
+__pycache__/
+

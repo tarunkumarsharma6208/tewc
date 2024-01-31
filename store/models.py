@@ -13,6 +13,7 @@ class Base(models.Model):
 class Category(Base):
     name = models.CharField(max_length=255)
     slug = models.SlugField(max_length=255, unique=True)
+    image = models.ImageField(upload_to='category/', default='category/jumbo.jpg')
 
     class Meta:
         ordering = ['name']

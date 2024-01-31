@@ -36,4 +36,13 @@
         <script type="text/javascript" src="{{static('assets/js/pace.min.js')}}"></script>
         <script type="text/javascript" src="{{static('assets/js/slick.min.js')}}"></script>
         <script type="text/javascript" src="{{static('assets/js/scripts.js')}}"></script>
+        <script>
+            function redirectToCategory(e){
+                if (e.value){
+                    let url = `/products/${e.value}`
+                    window.location.href = url;
+                }
+                
+            }
+        </script>
 </html>
