@@ -84,8 +84,8 @@ class Order(Base):
         
         
 class Cart(Base):
-    user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
-    items = models.ManyToManyField(Product, through='CartItem')
+    user = models.OneToOneField(CustomUser, on_delete=models.CASCADE, related_name='user_cartitem')
+    # items = models.ManyToManyField(Product, through='CartItem')
 
     def __str__(self):
         return f"Cart for {self.user}"
@@ -94,9 +94,13 @@ class CartItem(Base):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField(default=1)
+    # user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='user_cartitem')
 
     def __str__(self):
         return f"{self.product} in {self.cart} - Quantity: {self.quantity}"
+    
+    def subtotal(self):
+        return self.quantity * self.product.rate
 
 class RecentlyViewed(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
@@ -112,7 +116,7 @@ class RecentlyViewed(models.Model):
 
 class Wishlist(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
-    products = models.ManyToManyField(Product)
+    products = models.ManyToManyField(Product, blank=True)
 
     def __str__(self):
         return f"Wishlist for {self.user.username}"

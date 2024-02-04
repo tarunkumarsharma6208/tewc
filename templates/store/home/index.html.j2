@@ -399,7 +399,7 @@
                                                                             </div>
                                                                             <span class="review-count">(5)</span>
                                                                         </div>
-                                                                        <a class="button add_to_cart_button" href="cart.html" rel="nofollow">Add to cart</a>
+                                                                        <a class="button add_to_cart_button" href="{{url('add_to_cart', args=[i.id])}}" rel="nofollow">Add to cart</a>
                                                                     </div>
                                                                     {%endfor%}
                                                                     
@@ -8936,9 +8936,9 @@
         <!-- .site-footer -->
     </div>
 
-    
-    {% include 'store/footer/footer.html.j2' %}
-    
+
+{% include 'store/footer/footer-v1.html.j2' %}
+
     
 </body>
 
