@@ -18,4 +18,7 @@ admin.site.register(RecentlyViewed)
 admin.site.register(Wishlist)
 admin.site.register(MainBannerImage)
 
+admin.site.register(Brands)
+
+
 # Register your models here.

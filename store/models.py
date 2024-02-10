@@ -21,8 +21,13 @@ class Category(Base):
     def __str__(self):
         return f'{self.name}'
 
+class Brands(Base):
+    name = models.CharField(max_length=100, default='NA')
+    image = models.ImageField(upload_to='brands/', null=True)
+
 class Product(Base):
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='category_product')
+    brand = models.ForeignKey(Brands, on_delete=models.CASCADE, related_name='product_brand', null=True)
     name = models.CharField(max_length=255)
     slug = models.SlugField(max_length=255)
     rate = models.DecimalField(max_digits=10, decimal_places=2)
@@ -38,7 +43,7 @@ class Product(Base):
 
     def discounted_price(self):
         discount_amount = (self.discount_percentage / 100) * self.rate
-        return self.rate - discount_amount
+        return round(self.rate - discount_amount)
 
     def is_offer_valid(self):
         if self.start_date and self.end_date:
@@ -49,8 +54,15 @@ class Product(Base):
         reviews = self.reviews_product.all()
         if reviews:
             total_rating = sum(review.rating for review in reviews)
-            return total_rating / len(reviews)
+            percentage = (total_rating/5)*100
+            return round(percentage / len(reviews),1)
         return 0
+    def rating_count(self):
+        reviews = self.reviews_product.all()
+        if reviews:
+            return len(reviews)
+        else: 
+            return 0
 
     def __str__(self):
         return f'{self.name}'

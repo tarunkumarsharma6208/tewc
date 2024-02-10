@@ -2,6 +2,8 @@ from django.shortcuts import render, get_object_or_404, redirect
 from .models import *
 from accounts.models import *
 from django.contrib.auth.decorators import login_required
+from django.db.models import Count, Avg
+from django.db.models import F, ExpressionWrapper, DecimalField
 # Create your views here.
 
 def index(request):
@@ -9,20 +11,30 @@ def index(request):
     banner = MainBannerImage.objects.first()
     products = Product.objects.all()
     f =  products.first().images_product.all()
-    print(f)
+    # print(f)
     category = Category.objects.all()
     # latest_product = Product.objects.latest('created_at')
     latest_products = Product.objects.order_by('-created_at')[:100]
+    trending_products = Product.objects.annotate(num_wishlists=Count('wishlist')).order_by('num_wishlists')[:10]
+    top_rated_products = Product.objects.annotate(avg_rating=Avg('reviews_product__rating')).order_by('avg_rating')[:4]
 
+    top_discounted_products = Product.objects.annotate(
+        discounted=ExpressionWrapper(
+            F('rate') - (F('rate') * F('discount_percentage') / 100),
+            output_field=DecimalField(max_digits=10, decimal_places=2)
+        )
+    ).order_by('discounted')[:6]
 
-    context.update({'banner': banner, 'products': products, 'category': category, 'latest_products': latest_products})
+    brands = Brands.objects.all().order_by('id')[:6]
+    print(trending_products)
+    context.update({'banner': banner, 'brands':brands, 'products': products, 'category': category, 'top_discounted_products': top_discounted_products, 'top_rated_products':top_rated_products, 'latest_products': latest_products, 'trending_products': trending_products})
     return render(request, 'store/home/index.html.j2', context)
 
 def products_list(request, category):
     context = {}
-    print(category, 9999999999999999999999999999999999999)
+    # print(category, 9999999999999999999999999999999999999)
     products = Product.objects.filter(category__slug=category)
-    print(11111111111, products, '0000000000000000000000000000')
+    # print(11111111111, products, '0000000000000000000000000000')
     context.update({'products': products})
     return render(request, 'store/home/products-list.html.j2', context)
 
