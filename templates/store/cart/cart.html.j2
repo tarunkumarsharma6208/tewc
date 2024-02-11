@@ -13,7 +13,7 @@
             <div class="col-full">
                 <div class="row">
                     <nav class="woocommerce-breadcrumb">
-                        <a href="home-v1.html">Home</a>
+                        <a href="/">Home</a>
                         <span class="delimiter">
                             <i class="tm tm-breadcrumbs-arrow-right"></i>
                         </span>
@@ -39,7 +39,11 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        {%for i in cart_items%}
+                                                        {%if cart_items%}
+                                                        {%set product_items = cart_items.items.all()%}
+                                                        {%for i in product_items%}
+                                                        
+                                                        
                                                         <tr>
                                                             <td class="product-remove">
                                                                 <a class="remove" href="#">×</a>
@@ -78,6 +82,10 @@
                                                             </td>
                                                         </tr>
                                                         {%endfor%}
+                                                        {%else%}
+                                                        <tr ><td colspan="4" class="text-center">No cart items</td></tr>
+                                                        
+                                                        {%endif%}
                                                         
                                                     </tbody>
                                                 </table>

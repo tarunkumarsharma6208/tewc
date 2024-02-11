@@ -15,9 +15,17 @@
         <link rel="stylesheet" type="text/css" href="{{static('assets/css/animate.min.css')}}" media="all" />
         <link rel="stylesheet" type="text/css" href="{{static('assets/css/style.css')}}" media="all" />
         <link rel="stylesheet" type="text/css" href="{{static('assets/css/colors/blue.css')}}" media="all" />
+        <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
         
         <link href="https://fonts.googleapis.com/css?family=Rubik:300,400,500,900" rel="stylesheet">
         <link rel="shortcut icon" href="assets/images/fav-icon.png">
+
+        <style>
+            .select2-container .select2-selection--single {
+                height: 44px !important;
+            }
+        </style>
     </head>
     {% block content %}
     {% endblock %}
@@ -36,6 +44,7 @@
         <script type="text/javascript" src="{{static('assets/js/pace.min.js')}}"></script>
         <script type="text/javascript" src="{{static('assets/js/slick.min.js')}}"></script>
         <script type="text/javascript" src="{{static('assets/js/scripts.js')}}"></script>
+        <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
         <script>
             function redirectToCategory(e){
                 if (e.value){
@@ -45,4 +54,6 @@
                 
             }
         </script>
+    {% block extra_script%}
+    {%endblock%}
 </html>

@@ -6,7 +6,7 @@ from django.conf import settings
 from django.apps import apps
 from django_middleware_global_request.middleware import get_request
 from django.utils import timezone
-from store.models import Category
+from store.models import *
 
 
 def naturaltime(value):

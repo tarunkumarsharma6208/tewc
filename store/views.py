@@ -48,8 +48,8 @@ def product_detail(request, product_slug):
 
 # @login_required
 def cart_view(request):
-    cart = Cart.objects.get(user=request.user)
-    cart_items = CartItem.objects.select_related('cart','product').filter(cart=cart)
+    # cart = get_object_or_404(Cart, user=request.user)
+    cart_items = Cart.objects.get(user=request.user)
     print(cart_items)
     return render(request, 'store/cart/cart.html.j2', {'cart_items': cart_items})
 
@@ -61,13 +61,16 @@ def add_to_cart(request, product_id):
     # Get or create the user's cart
     cart, created = Cart.objects.get_or_create(user=request.user)
 
-    # Check if the item is already in the cart
-    cart_item, item_created = CartItem.objects.get_or_create(cart=cart, product=product)
+    # Get or create the cart item for the product
+    cart_item, item_created = CartItem.objects.get_or_create(product=product)
 
     # If the item is already in the cart, increment the quantity
     if not item_created:
         cart_item.quantity += 1
         cart_item.save()
+
+    # Associate the cart item with the user's cart
+    cart.items.add(cart_item)
 
     return redirect('cart_view')
 
@@ -92,9 +95,14 @@ def add_to_wishlist(request, product_id):
 
 def wishlist_view(request):
     context = {}
-    wish_list = Wishlist.objects.get(user=request.user)
+    wish_list = Wishlist.objects.filter(user=request.user)
     context.update({
         'wish_list':wish_list,
     })
     return render(request, 'store/wishlist/wishlist.html.j2', context)
+
+
+def store_admin(request):
+    context = {}
+    return render(request, 'admin/home.html.j2', context)
 

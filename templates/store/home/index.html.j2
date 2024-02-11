@@ -214,7 +214,7 @@
                                                                             </div>
                                                                             <span class="review-count">({{i.rating_count()}})</span>
                                                                         </div>
-                                                                        <a class="button add_to_cart_button" href="cart.html" rel="nofollow">Add to cart</a>
+                                                                        <a class="button add_to_cart_button" href="{{url('add_to_cart', args=[i.id])}}" rel="nofollow">Add to cart</a>
                                                                     </div>
                                                                     {%endfor%}
                                                                     <!-- /.product-outer -->
@@ -252,7 +252,7 @@
                                                                             </div>
                                                                             <span class="review-count">(5)</span>
                                                                         </div>
-                                                                        <a class="button add_to_cart_button" href="cart.html" rel="nofollow">Add to cart</a>
+                                                                        <a class="button add_to_cart_button" href="{{url('add_to_cart', args=[i.id])}}" rel="nofollow">Add to cart</a>
                                                                     </div>
                                                                     {%endfor%}
                                                                     <!-- /.product-outer -->
@@ -398,7 +398,7 @@
                                                                             </div>
                                                                             <span class="review-count">(5)</span>
                                                                         </div>
-                                                                        <a class="button add_to_cart_button" href="cart.html" rel="nofollow">Add to cart</a>
+                                                                        <a class="button add_to_cart_button" href="{{url('add_to_cart', args=[i.id])}}" rel="nofollow">Add to cart</a>
                                                                     </div>
                                                                     {%endfor%}
                                                                     <!-- /.product-outer -->                                                            

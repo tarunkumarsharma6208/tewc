@@ -7,14 +7,23 @@ class State(models.Model):
     name = models.CharField(max_length=100, null=True)
     code = models.CharField(max_length=2, null=True)
 
+    def __str__(self) -> str:
+        return f'{self.name}'
+
 class District(models.Model):
     state = models.ForeignKey(State, on_delete=models.CASCADE, blank=True, related_name='districts')
     name = models.CharField(max_length=100, null=True)
+
+    def __str__(self) -> str:
+        return f'{self.name}'
 
 class City(models.Model):
     district = models.ForeignKey(District, on_delete=models.CASCADE, blank=True, related_name='cities')
     name = models.CharField(max_length=100, null=True)
     pincode = models.CharField(max_length=8, null=True)
+
+    def __str__(self) -> str:
+        return f'{self.name}'
 
 class Address(models.Model):
     address_type = models.CharField(max_length=10, choices=ADDRESS_TYPE, default='home')
@@ -23,6 +32,9 @@ class Address(models.Model):
     city = models.ForeignKey(City, on_delete=models.CASCADE)
     pincode = models.CharField(max_length=8, null=True)
     address = models.TextField(null=True)
+
+    def __str__(self) -> str:
+        return f'{self.address}'
 
 
 class CustomUser(AbstractUser):

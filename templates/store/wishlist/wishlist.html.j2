@@ -12,6 +12,8 @@
         <!-- ============================================================= Header End ============================================================= -->
         <div id="content" class="site-content">
             <div class="col-full">
+
+                
                 <div class="row">
                     <nav class="woocommerce-breadcrumb">
                         <a href="home-v1.html">Home</a>
@@ -21,12 +23,13 @@
                         Wishlist
                     </nav>
                     <!-- .woocommerce-breadcrumb -->
+                    {%for w in wish_list%}
                     <div id="primary" class="content-area">
                         <main id="main" class="site-main">
                             <div class="type-page hentry">
                                 <header class="entry-header">
                                     <div class="page-header-caption">
-                                        <h1 class="entry-title">Wishlist</h1>
+                                        <h1 class="entry-title">{{w.name}}</h1>
                                     </div>
                                 </header>
                                 <!-- .entry-header -->
@@ -54,8 +57,8 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                {%if wish_list%}
-                                                {%set products = wish_list.products.all()%}
+                                                
+                                                {%set products = w.products.all()%}
                                                 {%for i in products%}
 
                                                 <tr>
@@ -96,35 +99,10 @@
                                                     </td>
                                                 </tr>
                                                 {%endfor%}
-                                                {%endif%}
+                                                
                                                 
                                             </tbody>
-                                            <tfoot>
-                                                <tr>
-                                                    <td colspan="6">
-                                                        <div class="yith-wcwl-share">
-                                                            <h4 class="yith-wcwl-share-title">Share on:</h4>
-                                                            <ul>
-                                                                <li style="list-style-type: none; display: inline-block;">
-                                                                    <a title="Facebook" href="https://www.facebook.com/sharer.php?s=100&amp;p%5Btitle%5D=My+wishlist+on+Tech+Market&amp;p%5Burl%5D=http%3A%2F%2Flocalhost%2F%7Efarook%2Ftechmarket%2Fhome-v1.html%2Fwishlist%2Fview%2FD5ON1PW1PYO1%2F" class="facebook" target="_blank"></a>
-                                                                </li>
-                                                                <li style="list-style-type: none; display: inline-block;">
-                                                                    <a title="Twitter" href="https://twitter.com/share?url=http%3A%2F%2Flocalhost%2F%7Efarook%2Ftechmarket%2Fhome-v1.html%2Fwishlist%2Fview%2FD5ON1PW1PYO1%2F&amp;text=" class="twitter" target="_blank"></a>
-                                                                </li>
-                                                                <li style="list-style-type: none; display: inline-block;">
-                                                                    <a onclick="window.open(this.href); return false;" title="Pinterest" href="http://pinterest.com/pin/create/button/?url=http%3A%2F%2Flocalhost%2F%7Efarook%2Ftechmarket%2Fhome-v1.html%2Fwishlist%2Fview%2FD5ON1PW1PYO1%2F&amp;description=&amp;media=" class="pinterest" target="_blank"></a>
-                                                                </li>
-                                                                <li style="list-style-type: none; display: inline-block;">
-                                                                    <a onclick="javascript:window.open(this.href, &quot;&quot;, &quot;menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600&quot;);return false;" title="Google+" href="https://plus.google.com/share?url=http%3A%2F%2Flocalhost%2F%7Efarook%2Ftechmarket%2Fhome-v1.html%2Fwishlist%2Fview%2FD5ON1PW1PYO1%2F&amp;title=My+wishlist+on+Tech+Market" class="googleplus" target="_blank"></a>
-                                                                </li>
-                                                                <li style="list-style-type: none; display: inline-block;">
-                                                                    <a title="Email" href="mailto:?subject=I+wanted+you+to+see+this+site&amp;body=http%3A%2F%2Flocalhost%2F%7Efarook%2Ftechmarket%2Fhome-v1.html%2Fwishlist%2Fview%2FD5ON1PW1PYO1%2F&amp;title=My+wishlist+on+Tech+Market" class="email"></a>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                            </tfoot>
+                                            
                                         </table>
                                         <!-- .wishlist_table -->
                                     </form>
@@ -136,8 +114,10 @@
                         </main>
                         <!-- #main -->
                     </div>
+                    {%endfor%}
                     <!-- #primary -->
                 </div>
+                
                 <!-- .row -->
             </div>
             <!-- .col-full -->

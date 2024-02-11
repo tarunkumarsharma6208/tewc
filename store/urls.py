@@ -11,4 +11,5 @@ urlpatterns = [
     path('checkout/', checkout, name='checkout'),
     path('wishlist/', wishlist_view, name='wishlist_view'),
     path('add-to-wishlist/<int:product_id>/', add_to_wishlist, name='add_to_wishlist'),
+    path('store/admin/', store_admin, name='store_admin'),
 ]

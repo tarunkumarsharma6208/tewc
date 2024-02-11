@@ -55,9 +55,7 @@
                                 <li class="menu-item animate-dropdown">
                                     <a title="Wishlist" href="{{url('wishlist_view')}}">Wishlist</a>
                                 </li>
-                                <li class="menu-item animate-dropdown">
-                                    <a title="Add to compare" href="compare.html">Add to compare</a>
-                                </li>
+                                
                                 <li class="menu-item animate-dropdown">
                                     <a title="About Us" href="about.html">About Us</a>
                                 </li>
@@ -192,9 +190,7 @@
                                                     <li class="menu-item">
                                                         <a href="login-and-register.html">My Account</a>
                                                     </li>
-                                                    <li class="menu-item">
-                                                        <a href="compare.html">Compare</a>
-                                                    </li>
+                                                   
                                                     <li class="menu-item">
                                                         <a href="{{url('wishlist_view')}}">Wishlist</a>
                                                     </li>
@@ -280,30 +276,17 @@
                             <a title="Track Your Order" href="track-your-order.html">
                                 <i class="tm tm-order-tracking"></i>Track Your Order</a>
                         </li>
-                        <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-487 animate-dropdown dropdown">
-                            <a title="Dollar (US)" data-toggle="dropdown" class="dropdown-toggle" aria-haspopup="true" href="#">
-                                <i class="tm tm-dollar"></i>Dollar (US)
-                                <span class="caret"></span>
-                            </a>
-                            <ul role="menu" class=" dropdown-menu">
-                                <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-489 animate-dropdown">
-                                    <a title="AUD" href="#">AUD</a>
-                                </li>
-                                <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-490 animate-dropdown">
-                                    <a title="INR" href="#">INR</a>
-                                </li>
-                                <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-491 animate-dropdown">
-                                    <a title="AED" href="#">AED</a>
-                                </li>
-                                <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-492 animate-dropdown">
-                                    <a title="SGD" href="#">SGD</a>
-                                </li>
-                            </ul>
-                            <!-- .dropdown-menu -->
-                        </li>
+                        
                         <li class="menu-item">
+                            
+                            {%if request.user.is_authenticated%}
+                            {{request.user.first_name|title}}
+                            <a title="My Account" href="{{url('logout')}}">
+                                <i class="tm tm-login-register"></i>Logout</a>
+                            {%else%}
                             <a title="My Account" href="{{url('login')}}">
-                                <i class="tm tm-login-register"></i>Register or Sign in</a>
+                                <i class="tm tm-login-register"></i>login</a>
+                            {%endif%}
                         </li>
                         <li class="techmarket-flex-more-menu-item dropdown">
                             <a title="..." href="#" data-toggle="dropdown" class="dropdown-toggle">...</a>
@@ -815,20 +798,19 @@
                 <!-- .input-group -->
             </form>
             <!-- .navbar-search -->
-            <ul class="header-compare nav navbar-nav">
-                <li class="nav-item">
-                    <a href="compare.html" class="nav-link">
-                        <i class="tm tm-compare"></i>
-                        <span id="top-cart-compare-count" class="value">3</span>
-                    </a>
-                </li>
-            </ul>
+            
             <!-- .header-compare -->
             <ul class="header-wishlist nav navbar-nav">
                 <li class="nav-item">
                     <a href="{{url('wishlist_view')}}" class="nav-link">
                         <i class="tm tm-favorites"></i>
-                        <span id="top-cart-wishlist-count" class="value">3</span>
+                        <span id="top-cart-wishlist-count" class="value">
+                            {%if request.user.user_wishlist%}
+                            {{request.user.user_wishlist.count()}}
+                            {%else%}
+                            0
+                            {%endif%}
+                        </span>
                     </a>
                 </li>
             </ul>
@@ -837,7 +819,13 @@
                 <li class="nav-item">
                     <a class="cart-contents" href="{{url('cart_view')}}" title="View your shopping cart">
                         <i class="tm tm-shopping-bag"></i>
-                        <span class="count">2</span>
+                        <span class="count">
+                        {%if request.user.user_cartitem%}
+                        {{request.user.user_cartitem.items.all().count()}}
+                        {%else%}
+                        0
+                        {%endif%}
+                        </span>
                         
                     </a>
                    
@@ -902,17 +890,18 @@
                             </a>
                         </li>
                         <li class="wishlist">
-                            <a href="wishlist.html" class="has-icon">
+                            <a href="{{url('wishlist_view')}}" class="has-icon">
                                 <i class="tm tm-favorites"></i>
-                                <span class="count">3</span>
+                                <span class="count">
+                                    {%if request.user.user_wishlist%}
+                                    {{request.user.user_wishlist.all().count()}}
+                                    {%else%}
+                                    0
+                                    {%endif%}
+                                </span>
                             </a>
                         </li>
-                        <li class="compare">
-                            <a href="compare.html" class="has-icon">
-                                <i class="tm tm-compare"></i>
-                                <span class="count">3</span>
-                            </a>
-                        </li>
+                        
                     </ul>
                     <!-- .columns-3 -->
                 </div>
@@ -1408,10 +1397,7 @@
                         <!-- .widget -->
                     </div>
                     <!-- .site-search -->
-                    <a class="handheld-header-cart-link has-icon" href="cart.html" title="View your shopping cart">
-                        <i class="tm tm-shopping-bag"></i>
-                        <span class="count">2</span>
-                    </a>
+                   
                 </div>
                 <!-- /.row -->
             </div>

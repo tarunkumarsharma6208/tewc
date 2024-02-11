@@ -551,9 +551,15 @@
             <!-- .header-compare -->
             <ul class="header-wishlist nav navbar-nav">
                 <li class="nav-item">
-                    <a href="wishlist.html" class="nav-link">
+                    <a href="{{url('wishlist_view')}}" class="nav-link">
                         <i class="tm tm-favorites"></i>
-                        <span id="top-cart-wishlist-count" class="value">3</span>
+                        <span id="top-cart-wishlist-count" class="value">
+                            {%if request.user.user_wishlist%}
+                            {{request.user.user_wishlist.count()}}
+                            {%else%}
+                            0
+                            {%endif%}
+                        </span>
                     </a>
                 </li>
             </ul>
@@ -562,7 +568,12 @@
                 <li class="animate-dropdown dropdown ">
                     <a class="cart-contents" href="{{url('cart_view')}}" title="View your shopping cart">
                         <i class="tm tm-shopping-bag"></i>
-                        <span class="count">2</span>
+                        {%if request.user.user_cartitem%}
+                        {{request.user.user_cartitem.items.all().count()}}
+                        {%else%}
+                        0
+                        {%endif%}
+                        <span class="count"></span>
                         
                     </a>
                 </li>
@@ -570,9 +581,13 @@
 
             <ul class="nav navbar-nav">
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <span id="top-cart-wishlist-count" class="value">tarun kumar</span>
+                    {%if request.user.is_authenticated%}
+                    {{request.user.first_name}} <a href="{{url('logout')}}">logout</a>
+                    {%else%}
+                    <a href="{{url('login')}}" class="nav-link">
+                        <span id="top-cart-wishlist-count" class="value">Login</span>
                     </a>
+                    {%endif%}
                 </li>
             </ul>
             <!-- .site-header-cart -->
