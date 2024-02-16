@@ -89,6 +89,8 @@ class Order(Base):
     buyer = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     seller = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='seller_order')
     status = models.CharField(max_length=20, choices=ORDER_STATUS, default='pending')
+    quantity = models.PositiveIntegerField(default=1)
+
 
 
     def __str__(self):
@@ -134,6 +136,8 @@ class Wishlist(models.Model):
     
 class MainBannerImage(models.Model):
     image = models.ImageField(upload_to='banner/')
+    title = models.CharField(max_length=100, default='tewc')
+    desc = models.TextField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

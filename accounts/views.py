@@ -11,16 +11,23 @@ def user_login(request):
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
-
-        user = authenticate(request, username=username, password=password)
-
-        if user is not None:
-            login(request, user)
-            messages.success(request, 'Login successful.')
-            return redirect('home')  # Redirect to your home page
+        print(username ,len(username))
+        print(password)
+        print('------------------------------------')
+        if username == '' or username == None or len(username) < 10:
+            messages.error(request, 'Invalid Mobile Number. Please try again.')
+            return redirect('login')
         else:
-            messages.error(request, 'Invalid credentials. Please try again.')
-            return render(request, 'accounts/login.html.j2', {'error_message': 'Invalid credentials'})
+            user = authenticate(request, username=username, password=password)
+
+            if user is not None:
+                login(request, user)
+                messages.success(request, 'Login successful.')
+                return redirect('home')  # Redirect to your home page
+            else:
+                messages.error(request, 'Mobile or password is incorrect. Please try again.')
+                return redirect('login')
+                # return render(request, 'accounts/login.html.j2', {'error_message': 'Invalid credentials'})
     else:
         return render(request, 'accounts/login.html.j2')
 

@@ -70,7 +70,10 @@ TEMPLATES = [
         'DIRS': ['templates'],
         'APP_DIRS': True,
         'OPTIONS': {
-            'environment': "tewc.jinja2.environment"
+            'environment': "tewc.jinja2.environment",
+            'context_processors': [
+                'django.contrib.messages.context_processors.messages',
+            ],
         },
     },
     {

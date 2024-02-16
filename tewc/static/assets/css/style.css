@@ -2793,7 +2793,7 @@ textarea,
   box-sizing: border-box;
   font-weight: normal;
   font-size: 1em;
-  border: 1px solid #ebebeb; }
+  border: 1px solid #b5b5b5; }
   input[type="text"]:focus,
   input[type="email"]:focus,
   input[type="url"]:focus,
@@ -2843,7 +2843,7 @@ select {
   vertical-align: middle;
   background: #fff url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 5'%3E%3Cpath fill='%23333' d='M2 0L0 2h4zm0 5L0 3h4z'/%3E%3C/svg%3E") no-repeat right 20px center;
   background-size: 8px 10px;
-  border: 1px solid #ebebeb;
+  border: 1px solid #b5b5b5;
   border-radius: 0.25rem;
   -moz-appearance: none;
   -webkit-appearance: none; }
@@ -7062,7 +7062,7 @@ button.menu-toggle {
     .section-categories-filter .categories .select-picker {
       flex-grow: 1;
       padding: 0;
-      border: 1px solid #ebebeb;
+      border: 1px solid #b5b5b5;
       border-radius: 5px;
       margin-bottom: 3.5em; }
       .section-categories-filter .categories .select-picker + .select-picker {
@@ -10852,7 +10852,7 @@ a#variations_clear:before {
 .select2-container {
   outline: none; }
   .select2-container .select2-choice {
-    border: 1px solid #ebebeb;
+    border: 1px solid #b5b5b5;
     padding: 9px;
     color: #444; }
   .select2-container .select2-selection--single,
@@ -10860,7 +10860,7 @@ a#variations_clear:before {
     outline: none; }
   .select2-container .select2-selection--single {
     height: 45px;
-    border: 1px solid #ebebeb; }
+    border: 1px solid #b5b5b5; }
     .select2-container .select2-selection--single .select2-selection__arrow {
       height: 45px;
       top: 0;
@@ -14562,7 +14562,7 @@ form.woocommerce-checkout.checkout .col2-set .woocommerce-shipping-fields .wooco
   padding-top: 0px; }
 
 .widget_techmarket_banner_widget .banner {
-  border: 1px solid #ebebeb;
+  border: 1px solid #b5b5b5;
   border-radius: 4px;
   overflow: hidden; }
   .widget_techmarket_banner_widget .banner .banner-bg {
@@ -14605,7 +14605,7 @@ form.woocommerce-checkout.checkout .col2-set .woocommerce-shipping-fields .wooco
     margin-bottom: 0; }
 
 .widget_techmarket_poster_widget .poster-bg {
-  border: 1px solid #ebebeb;
+  border: 1px solid #b5b5b5;
   border-radius: 4px;
   text-align: center; }
   .widget_techmarket_poster_widget .poster-bg .caption {

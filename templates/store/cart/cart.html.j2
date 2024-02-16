@@ -71,14 +71,14 @@
                                                             <td class="product-quantity" data-title="Quantity">
                                                                 <div class="quantity">
                                                                     <label for="quantity-input-1">Quantity</label>
-                                                                    <input id="quantity-input-1" type="number" name="cart[e2230b853516e7b05d79744fbd4c9c13][qty]" value="{{i.quantity}}" title="Qty" class="input-text qty text" size="4">
+                                                                    <input id="quantity-input-1" data-pid="{{i.product.id}}" onchange="changeQuentity(this)" type="number" name="cart" value="{{i.quantity}}" title="Qty" class="input-text qty text" size="4">
                                                                 </div>
                                                             </td>
                                                             <td data-title="Total" class="product-subtotal">
                                                                 <span class="woocommerce-Price-amount amount">
                                                                     <span class="woocommerce-Price-currencySymbol">Rs.</span>{{i.subtotal()}}
                                                                 </span>
-                                                                <a title="Remove this item" class="remove" href="#">×</a>
+                                                                <a title="Remove this item" class="remove" href="{{url('remove_from_cart', args=[i.product.id])}}">×</a>
                                                             </td>
                                                         </tr>
                                                         {%endfor%}
@@ -101,7 +101,7 @@
                                                                 <th>Subtotal</th>
                                                                 <td data-title="Subtotal">
                                                                     <span class="woocommerce-Price-amount amount">
-                                                                        <span class="woocommerce-Price-currencySymbol">£</span>963.94</span>
+                                                                        <span class="woocommerce-Price-currencySymbol">Rs</span>{{total_price}}</span>
                                                                 </td>
                                                             </tr>
                                                             <tr class="shipping">
@@ -113,7 +113,7 @@
                                                                 <td data-title="Total">
                                                                     <strong>
                                                                         <span class="woocommerce-Price-amount amount">
-                                                                            <span class="woocommerce-Price-currencySymbol">£</span>963.94</span>
+                                                                            <span class="woocommerce-Price-currencySymbol">Rs</span>{{total_price}}</span>
                                                                     </strong>
                                                                 </td>
                                                             </tr>
@@ -203,7 +203,7 @@
                                                         <!-- .wc-proceed-to-checkout -->
                                                         <a class="checkout-button button alt wc-forward" href="{{url('checkout')}}">
             Proceed to checkout</a>
-                                                        <a class="back-to-shopping" href="shop.html">Back to Shopping</a>
+                                                        <a class="back-to-shopping" href="/">Back to Shopping</a>
                                                     </div>
                                                     <!-- .wc-proceed-to-checkout -->
                                                 </div>
@@ -414,4 +414,25 @@
     
     
 </body>
+{%endblock%}
+{% block extra_script%}
+   
+<script>
+    function changeQuentity(el){
+        if (el.value){
+            $.ajax({
+                type: 'GET',
+                url: '{{url("increse_prod_quentity")}}',  // Replace with your actual URL
+                data:{'product_id': el.dataset.pid, 'quentity': el.value},
+                success: function (data) {
+                    window.location.reload()
+                },
+                error: function (error) {
+                    console.error('Error calling Django function:', error);
+                }
+        });
+        }
+        
+    }
+</script>
 {%endblock%}

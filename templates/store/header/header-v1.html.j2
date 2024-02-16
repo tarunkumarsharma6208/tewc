@@ -272,10 +272,12 @@
                 <!-- .primary-navigation -->
                 <nav id="secondary-navigation" class="secondary-navigation" aria-label="Secondary Navigation" data-nav="flex-menu">
                     <ul id="menu-secondary-menu" class="nav">
+                        {%if request.user.is_authenticated%}
                         <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2802 animate-dropdown">
-                            <a title="Track Your Order" href="track-your-order.html">
+                            <a title="Track Your Order" href="{{url('order_tracking')}}">
                                 <i class="tm tm-order-tracking"></i>Track Your Order</a>
                         </li>
+                        {%endif%}
                         
                         <li class="menu-item">
                             
@@ -288,6 +290,7 @@
                                 <i class="tm tm-login-register"></i>login</a>
                             {%endif%}
                         </li>
+                        
                         <li class="techmarket-flex-more-menu-item dropdown">
                             <a title="..." href="#" data-toggle="dropdown" class="dropdown-toggle">...</a>
                             <ul class="overflow-items dropdown-menu"></ul>
@@ -798,6 +801,7 @@
                 <!-- .input-group -->
             </form>
             <!-- .navbar-search -->
+            {%if request.user.is_authenticated%}
             
             <!-- .header-compare -->
             <ul class="header-wishlist nav navbar-nav">
@@ -832,6 +836,7 @@
                     <!-- .dropdown-menu-mini-cart -->
                 </li>
             </ul>
+            {%endif%}
             <!-- .site-header-cart -->
         </div>
         <!-- /.row -->

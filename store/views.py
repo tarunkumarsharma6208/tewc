@@ -4,6 +4,7 @@ from accounts.models import *
 from django.contrib.auth.decorators import login_required
 from django.db.models import Count, Avg
 from django.db.models import F, ExpressionWrapper, DecimalField
+from django.contrib import messages
 # Create your views here.
 
 def index(request):
@@ -50,8 +51,17 @@ def product_detail(request, product_slug):
 def cart_view(request):
     # cart = get_object_or_404(Cart, user=request.user)
     cart_items = Cart.objects.get(user=request.user)
+    price = 0
+    if cart_items:
+        products_list = cart_items.items.all()
+        for i in products_list:
+            price += i.subtotal()
+    
+
+
+    print(price, '=================')
     print(cart_items)
-    return render(request, 'store/cart/cart.html.j2', {'cart_items': cart_items})
+    return render(request, 'store/cart/cart.html.j2', {'cart_items': cart_items, 'total_price': price})
 
 # @login_required
 def add_to_cart(request, product_id):
@@ -74,13 +84,29 @@ def add_to_cart(request, product_id):
 
     return redirect('cart_view')
 
+def remove_from_cart(request, product_id):
+    # Get the product
+    product = get_object_or_404(Product, pk=product_id)
+
+    # Get or create the user's cart
+    cart = Cart.objects.get(user=request.user)
+
+    # Get or create the cart item for the product
+    cart_item = CartItem.objects.get(product=product)
+
+    cart_item.delete()
+
+    cart.items.remove(cart_item)
+
+    return redirect('cart_view')
+
 def checkout(request):
     context = {
 
     }
     return render(request, 'store/checkout/checkout.html.j2', context)
 
-
+@login_required(login_url='/account/login/')
 def add_to_wishlist(request, product_id):
     # Get the product
     product = get_object_or_404(Product, pk=product_id)
@@ -102,7 +128,17 @@ def wishlist_view(request):
     return render(request, 'store/wishlist/wishlist.html.j2', context)
 
 
+def order_tracking(request):
+    context = {}
+
+    return render(request, 'store/order/order-tracking.html.j2', context)
+
+
+
+#=====admin section ===========
 def store_admin(request):
     context = {}
+    order = Order.objects.all()
+    context.update({'order': order})
     return render(request, 'admin/home.html.j2', context)
 

@@ -16,6 +16,7 @@
         <link rel="stylesheet" type="text/css" href="{{static('assets/css/style.css')}}" media="all" />
         <link rel="stylesheet" type="text/css" href="{{static('assets/css/colors/blue.css')}}" media="all" />
         <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" integrity="sha512-vKMx8UnXk60zUwyUnUPM3HbQo8QfmNx7+ltw8Pm5zLusl1XIfwcxo8DbWCqMGKaWeNxWA8yrx5v3SaVpMvR3CA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
         
         <link href="https://fonts.googleapis.com/css?family=Rubik:300,400,500,900" rel="stylesheet">
@@ -45,6 +46,22 @@
         <script type="text/javascript" src="{{static('assets/js/slick.min.js')}}"></script>
         <script type="text/javascript" src="{{static('assets/js/scripts.js')}}"></script>
         <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        
+        {% if messages %}
+                {% for message in messages %}
+                    {%if message.tags == 'error'%}
+                    <script>toastr.error('{{message}}', 'error')</script>
+                    {%elif message.tags == 'success'%}
+                    <script>toastr.success('{{message}}', 'success')</script>
+                    {%elif message.tags == 'warning'%}
+                    <script>toastr.warning('{{message}}', 'warning')</script>
+                    {%else%}
+                        <script>toastr.info('{{message}}', 'info')</script>
+                    {%endif%}
+                {% endfor %}
+        {% endif %}
+
         <script>
             function redirectToCategory(e){
                 if (e.value){
@@ -53,7 +70,26 @@
                 }
                 
             }
+
         </script>
+
+        <script>
+            $(document).ready(function () {
+            $('.valid-number').on('input', function () {
+            let inputValue = $(this).val();
+
+            // Remove non-numeric characters
+            let numericValue = inputValue.replace(/\D/g, '');
+
+            // Limit the length to 10 characters (adjust as needed for your country's phone number format)
+            //numericValue = numericValue.substring(0, 10);
+
+            // Update the input value
+            $(this).val(numericValue);
+        });
+    });
+        </script>
+        
     {% block extra_script%}
     {%endblock%}
 </html>
