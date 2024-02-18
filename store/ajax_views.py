@@ -17,12 +17,26 @@ def increse_prod_quentity(request):
         cart_item = CartItem.objects.get(product=product)
 
         # If the item is already in the cart, increment the quantity
-        if product.stock <= int(quentity):
-            cart_item.quantity = int(quentity)
-            cart_item.save()
-        else:
-            messages.warning(request, 'Product Out of Stock')
+        
+        cart_item.quantity = int(quentity)
+        cart_item.save()
+        
 
         # # Associate the cart item with the user's cart
         # cart.items.add(cart_item)
+    return JsonResponse({'message': 'quentity incresed'})
+
+def activate_addtess(request):
+    if request.method == 'GET':
+        id = request.GET.get('address_id')
+        
+        ad = Address.objects.get(id=id)
+
+        if ad.is_active == False:
+            ad.is_active = True
+            ad.save()
+        elif ad.is_active == True:
+            ad.is_active = False
+            ad.save()
+
     return JsonResponse({'message': 'quentity incresed'})

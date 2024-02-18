@@ -1,7 +1,7 @@
 
 ORDER_STATUS = (
-    ('pending', 'Pending'), 
-    ('completed', 'Completed')
+    ('pending', 'Preparing For Dispatch'), 
+    ('completed', 'Order Delivered')
 )
 RATINGS = (
     (1, '1'), 

@@ -25,23 +25,30 @@ class City(models.Model):
     def __str__(self) -> str:
         return f'{self.name}'
 
-class Address(models.Model):
-    address_type = models.CharField(max_length=10, choices=ADDRESS_TYPE, default='home')
-    state = models.ForeignKey(State, on_delete=models.CASCADE)
-    district = models.ForeignKey(District, on_delete=models.CASCADE)
-    city = models.ForeignKey(City, on_delete=models.CASCADE)
-    pincode = models.CharField(max_length=8, null=True)
-    address = models.TextField(null=True)
 
-    def __str__(self) -> str:
-        return f'{self.address}'
+
+   
 
 
 class CustomUser(AbstractUser):
-    address = models.ForeignKey(Address, on_delete=models.CASCADE, null=True, blank=True)
+    # address = models.ForeignKey(Address, on_delete=models.CASCADE, null=True, blank=True)
     dob = models.DateField(null=True, blank=True)
     role = models.CharField(max_length=10, choices=ROLES, default='customer')
     mobile = models.CharField(max_length=10, null=True)
 
     class Meta:
         verbose_name_plural='CustomUser'
+
+
+class Address(models.Model):
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=True, blank=True)
+    address_type = models.CharField(max_length=10, choices=ADDRESS_TYPE, default='home')
+    state = models.ForeignKey(State, on_delete=models.CASCADE)
+    district = models.ForeignKey(District, on_delete=models.CASCADE)
+    city = models.ForeignKey(City, on_delete=models.CASCADE)
+    pincode = models.CharField(max_length=8, null=True)
+    address = models.TextField(null=True)
+    is_active = models.BooleanField(default=False)
+
+    def __str__(self) -> str:
+        return f'{self.address}'

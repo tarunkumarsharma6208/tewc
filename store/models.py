@@ -90,9 +90,7 @@ class Order(Base):
     seller = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='seller_order')
     status = models.CharField(max_length=20, choices=ORDER_STATUS, default='pending')
     quantity = models.PositiveIntegerField(default=1)
-
-
-
+    
     def __str__(self):
         return f"{self.product} - {self.buyer} - {self.status}"
         
@@ -105,7 +103,7 @@ class Cart(Base):
         return f"Cart for {self.user}"
 
 class CartItem(Base):
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='cart_product')
     quantity = models.PositiveIntegerField(default=1)
 
     def __str__(self):

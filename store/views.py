@@ -5,6 +5,8 @@ from django.contrib.auth.decorators import login_required
 from django.db.models import Count, Avg
 from django.db.models import F, ExpressionWrapper, DecimalField
 from django.contrib import messages
+from django.db import transaction
+from .choices import *
 # Create your views here.
 
 def index(request):
@@ -100,10 +102,47 @@ def remove_from_cart(request, product_id):
 
     return redirect('cart_view')
 
+@login_required(login_url='/account/login/')
 def checkout(request):
-    context = {
+    context = {}
 
-    }
+    address = Address.objects.filter(user=request.user)
+
+    cart = Cart.objects.get(user=request.user)
+    total = 0
+    try:
+        items = cart.items.all()
+        for i in items:
+            total += i.subtotal()
+    except:
+        pass
+
+    context.update({'address': address, 'cart': cart, 'total': total})
+    
+    if request.method == "POST":
+        try:
+            with transaction.atomic():
+                cart = get_object_or_404(Cart, user=request.user)
+                cart_items = cart.items.all()
+
+                address_type = request.POST.get('address_type')
+
+                for item in cart_items:
+                    Order.objects.create(
+                        buyer=request.user,
+                        product_id=item.product_id,
+                        quantity=item.quantity,
+                        seller=item.product.seller
+                    )
+
+                # Clear the user's cart after creating orders
+                cart.items.all().delete()
+                messages.success(request, 'Your order has been place')
+                return redirect('order_tracking')
+        except Exception as e:
+            print(f"An error occurred: {str(e)}")
+            messages.error(request, 'oops error while placing order')
+
     return render(request, 'store/checkout/checkout.html.j2', context)
 
 @login_required(login_url='/account/login/')
@@ -130,7 +169,8 @@ def wishlist_view(request):
 
 def order_tracking(request):
     context = {}
-
+    order = Order.objects.filter(buyer=request.user)
+    context.update({'order': order, 'ORDER_STATUS': ORDER_STATUS})
     return render(request, 'store/order/order-tracking.html.j2', context)
 
 
