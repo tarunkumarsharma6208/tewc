@@ -15,6 +15,8 @@ urlpatterns = [
     path('wishlist/', wishlist_view, name='wishlist_view'),
     path('add-to-wishlist/<int:product_id>/', add_to_wishlist, name='add_to_wishlist'),
     path('order/track/', order_tracking, name='order_tracking'),
+    path('search/products/', search_products, name='search_products'),
+    path('save_user_address', save_user_address, name='save_user_address'),
 
     #admin urls
     path('store/admin/', store_admin, name='store_admin'),

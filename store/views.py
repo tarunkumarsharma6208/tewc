@@ -102,6 +102,27 @@ def remove_from_cart(request, product_id):
 
     return redirect('cart_view')
 
+def save_user_address(request):
+    if request.method == 'POST':
+        state = request.POST.get('state')
+        district = request.POST.get('district')
+        city = request.POST.get('city')
+        pincode = request.POST.get('pincode')
+        address = request.POST.get('address')
+
+    addr = Address(
+        user = request.user,
+        state_id = state,
+        district_id = district,
+        city_id = city,
+        pincode = pincode,
+        address = address,
+        )
+    addr.save()
+
+
+    return redirect('checkout')
+
 @login_required(login_url='/account/login/')
 def checkout(request):
     context = {}
@@ -117,7 +138,11 @@ def checkout(request):
     except:
         pass
 
-    context.update({'address': address, 'cart': cart, 'total': total})
+    state = State.objects.all()
+    dist = District.objects.all()
+    city = City.objects.all()
+
+    context.update({'address': address, 'cart': cart, 'total': total, 'state': state, 'district': dist, 'city': city})
     
     if request.method == "POST":
         try:
@@ -172,6 +197,15 @@ def order_tracking(request):
     order = Order.objects.filter(buyer=request.user)
     context.update({'order': order, 'ORDER_STATUS': ORDER_STATUS})
     return render(request, 'store/order/order-tracking.html.j2', context)
+
+
+def search_products(request):
+    context = {}
+    q = request.GET.get('query')
+    products = Product.objects.filter(name__icontains=q)
+
+    context['products'] = products
+    return render(request, 'store/home/search-products.html.j2', context)
 
 
 

@@ -1,3 +1,50 @@
+<style>
+    .autocomplete {
+  /*the container must be positioned relative:*/
+  position: relative;
+  display: inline-block;
+}
+input {
+  border: 1px solid transparent;
+  background-color: #f1f1f1;
+  padding: 10px;
+  font-size: 16px;
+}
+input[type=text] {
+  background-color: #f1f1f1;
+  width: 100%;
+}
+input[type=submit] {
+  background-color: DodgerBlue;
+  color: #fff;
+}
+.autocomplete-items {
+  position: absolute;
+  border: 1px solid #d4d4d4;
+  border-bottom: none;
+  border-top: none;
+  z-index: 99;
+  /*position the autocomplete items to be the same width as the container:*/
+  top: 100%;
+  left: 0;
+  right: 0;
+}
+.autocomplete-items div {
+  padding: 10px;
+  cursor: pointer;
+  background-color: #fff;
+  border-bottom: 1px solid #d4d4d4;
+}
+.autocomplete-items div:hover {
+  /*when hovering an item:*/
+  background-color: #e9e9e9;
+}
+.autocomplete-active {
+  /*when navigating through the items using the arrow keys:*/
+  background-color: DodgerBlue !important;
+  color: #ffffff;
+}
+</style>
 <header id="masthead" class="site-header header-v2" style="background-image: none; ">
     <div class="col-full desktop-only">
         <div class="row">
@@ -514,10 +561,10 @@
                 </ul>
             </div>
             <!-- .departments-menu -->
-            <form class="navbar-search" method="get" action="home-v1.html">
+            <form class="navbar-search" method="get" action="{{url('search_products')}}" autocomplete="off">
                 <label class="sr-only screen-reader-text" for="search">Search for:</label>
                 <div class="input-group">
-                    <input type="text" id="search" class="form-control search-field product-search-field" dir="ltr" value="" name="s" placeholder="Search for products" />
+                    <input type="text" id="query" class="form-control search-field product-search-field" dir="ltr" value="" name="query" placeholder="Search for products" />
                     <div class="input-group-addon search-categories popover-header">
                         {%set category_all = global_context().category_all%}
                         <select name='product_cat' id='product_cat' class='postform resizeselect' onchange="redirectToCategory(this);">
@@ -1376,9 +1423,9 @@
                     <!-- .handheld-navigation -->
                     <div class="site-search">
                         <div class="widget woocommerce widget_product_search">
-                            <form role="search" method="get" class="woocommerce-product-search" action="home-v1.html">
+                            <form role="search" method="get" class="woocommerce-product-search" action="{{url('search_products')}}" autocomplete="off">
                                 <label class="screen-reader-text" for="woocommerce-product-search-field-0">Search for:</label>
-                                <input type="search" id="woocommerce-product-search-field-0" class="search-field" placeholder="Search products&hellip;" value="" name="s" />
+                                <input type="search" id="query1" class="search-field" placeholder="Search products&hellip;" value="" name="query" />
                                 <input type="submit" value="Search" />
                                 <input type="hidden" name="post_type" value="product" />
                             </form>

@@ -45,10 +45,11 @@ def user_register(request):
         address = request.POST.get('address')
         password = request.POST.get('password2')
 
-        addr = Address.objects.create(state_id=state, district_id=district, city_id=city, address=address, pincode=pincode)
+        
 
-        user = CustomUser.objects.create_user(address=addr, first_name=first_name, last_name=last_name,mobile=mobile, username=mobile, password=password, email=email)
+        user = CustomUser.objects.create_user(first_name=first_name, last_name=last_name,mobile=mobile, username=mobile, password=password, email=email)
 
+        addr = Address.objects.create(user=user,is_active=True, state_id=state, district_id=district, city_id=city, address=address, pincode=pincode)
         login(request, user)
 
         messages.success(request, 'Registration successful. You are now logged in.')

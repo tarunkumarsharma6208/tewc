@@ -16,7 +16,7 @@ class CityAdmin(ImportExportModelAdmin, admin.ModelAdmin):
 admin.site.register(City, CityAdmin)
 
 class AddressAdmin(ImportExportModelAdmin, admin.ModelAdmin):
-    list_display = ['city', 'district', 'state']
+    list_display = ['address', 'city', 'district', 'state']
 admin.site.register(Address, AddressAdmin)
 
 class CustomUserAdmin(ImportExportModelAdmin, admin.ModelAdmin):

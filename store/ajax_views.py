@@ -40,3 +40,13 @@ def activate_addtess(request):
             ad.save()
 
     return JsonResponse({'message': 'quentity incresed'})
+
+def get_products_query(request):
+    l = []
+    if request.method == 'GET':
+        query = request.GET.get('query')
+
+        obj = Product.objects.filter(name__icontains=query).order_by('name')
+        for i in obj:
+            l.append(i.name)
+    return JsonResponse(l, safe=False)

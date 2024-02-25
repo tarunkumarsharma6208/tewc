@@ -26,7 +26,7 @@
                             <div class="type-page hentry">
                                 <div class="entry-content">
                                     <div class="woocommerce">
-                                        <form method="POST" action="">
+                                        <form method="POST" id="checkout-form">
                                             {{csrf_input}}
                                             <div class="row">
                                                 <div class="col-lg-8">
@@ -40,7 +40,7 @@
                                                         </div>
                                                     </div>
                                                     {%endfor%}
-                                                <button class="button">add address</button>
+                                                <button type="button" class="button" data-toggle="modal" data-target="#addAddress">add address</button>
                                                 </div>
                                                 {%set items = cart.items.all()%}
                                                 <div class="col-lg-4">
@@ -83,8 +83,11 @@
                                                         <div class="woocommerce-checkout-payment" id="payment">
                                                             
                                                             <div class="form-row place-order">
-                                                                
-                                                                <button class="button wc-forward text-center">Place order</button>
+                                                                {%if address%}
+                                                                <button type="submit" class="button wc-forward text-center" >Place order</button>
+                                                                {%else%}
+                                                                <script>tostar.warning('Please Add Address First?')</script>
+                                                                {%endif%}
                                                             </div>
                                                         </div>
                                                         <!-- /.woocommerce-checkout-payment -->
@@ -111,6 +114,69 @@
         {% include 'store/footer/footer-v1.html.j2' %}
         <!-- .site-footer -->
     </div>
+
+    <div class="modal fade" id="addAddress" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Add Address</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                <form method="post" action="{{url('save_user_address')}}" class="woocomerce-form woocommerce-form-login login">
+                    {{csrf_input}}
+                    
+                    <div class="form-row form-row-wide">
+                        <div class="col-lg-4">
+                            <label for="">State<span class="required">*</span></label>
+                            <select name="state" id="state">
+                                <option value="">Select State</option>
+                                {%for i in state%}
+                                <option value="{{i.id}}">{{i.name}}</option>
+                                {%endfor%}
+                            </select>
+                        </div>
+
+                        <div class="col-lg-4">
+                            <label for="">District<span class="required">*</span></label>
+                            <select name="district" id="district">
+                                <option value="">Select District</option>
+                                {%for i in district%}
+                                <option value="{{i.id}}">{{i.name}}</option>
+                                {%endfor%}
+                            </select>
+                        </div>
+
+                        <div class="col-lg-4">
+                            <label for="">City<span class="required">*</span></label>
+                            <select name="city" id="city">
+                                <option value="">Select city</option>
+                                {%for i in city%}
+                                <option value="{{i.id}}">{{i.name}}</option>
+                                {%endfor%}
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <label for="">Pincode<span class="required">*</span></label>
+                        <input type="text" maxlength="8" class="valid-number" name="pincode" id="pincode">
+                        <label for="">Address<span class="required">*</span></label>
+                        <textarea name="address" id="address"></textarea>
+                        
+                    </div>
+                    
+                    <p class="form-row">
+                        <input class="woocommerce-Button button" type="submit" value="Save" name="Save">
+                    </p>
+                   
+                </form>
+            </div>
+          </div>
+        </div>
+      </div>
     
 </body>
 
@@ -118,6 +184,19 @@
 
 {% block extra_script%}
  <script>
+
+$(document).ready(function () {
+    $('#checkout-form').submit(function (event) {
+        // Check if any radio button with name "address_type" is selected
+        if ($('input[name="address_type"]:checked').length === 0) {
+            // No radio button selected, prevent form submission
+            alert('Please select an address before placing the order.');
+            event.preventDefault();
+        }
+        // If a radio button is selected, the form will be submitted as usual
+    });
+});
+
     function activateAddress(el){
         $.ajax({
             url: '{{url("activate_addtess")}}',
