@@ -44,8 +44,17 @@ def products_list(request, category):
 def product_detail(request, product_slug):
     context = {}
     product = Product.objects.get(slug=product_slug)
+    related_products = Product.objects.filter(category=product.category).exclude(slug=product_slug)[:100]
+ 
+    if request.user.is_authenticated:
+        recently_viewed_products = RecentlyViewed.objects.filter(user=request.user).order_by('-timestamp')[:100]
+    else:
+        recently_viewed_products = None
+    print(recently_viewed_products)
     context.update({
         'product':product,
+        'related_products': related_products,
+        'recently_viewed_products': recently_viewed_products
     })
     return render(request, 'store/home/products-detail.html.j2', context)
 

@@ -2,7 +2,7 @@
 {% block title %}Home{% endblock %}
 
 {% block content %}
-
+{%set verified = request.user.is_authenticated%}
 <body class="woocommerce-active page-template-template-homepage-v4 can-uppercase">
     <div id="page" class="hfeed site">
         
@@ -126,7 +126,7 @@
                                                                 </div>
                                                                 <span class="review-count">({{i.rating_count()}})</span>
                                                             </div>
-                                                            <a class="button add_to_cart_button" href="{{url('add_to_cart', args=[i.id])}}" rel="nofollow">Add to cart</a>
+                                                            <a class="button add_to_cart_button" href="{%if verified %}{{url('add_to_cart', args=[i.id])}}{%else%}{{url('login')}}{%endif%}" rel="nofollow">Add to cart</a>
                                                         </div>
                                                         {%endfor%}
                                                         <!-- /.product-outer -->
@@ -173,7 +173,7 @@
                                                                             </div>
                                                                             <span class="review-count">({{i.rating_count()}})</span>
                                                                         </div>
-                                                                        <a class="button add_to_cart_button" href="{{url('add_to_cart', args=[i.id])}}" rel="nofollow">Add to cart</a>
+                                                                        <a class="button add_to_cart_button" href="{%if verified %}{{url('add_to_cart', args=[i.id])}}{%else%}{{url('login')}}{%endif%}" rel="nofollow">Add to cart</a>
                                                                     </div>
                                                                     {%endfor%}
                                                                     
@@ -212,7 +212,7 @@
                                                                             </div>
                                                                             <span class="review-count">({{i.rating_count()}})</span>
                                                                         </div>
-                                                                        <a class="button add_to_cart_button" href="{{url('add_to_cart', args=[i.id])}}" rel="nofollow">Add to cart</a>
+                                                                        <a class="button add_to_cart_button" href="{%if verified %}{{url('add_to_cart', args=[i.id])}}{%else%}{{url('login')}}{%endif%}" rel="nofollow">Add to cart</a>
                                                                     </div>
                                                                     {%endfor%}
                                                                     <!-- /.product-outer -->
@@ -250,7 +250,7 @@
                                                                             </div>
                                                                             <span class="review-count">(5)</span>
                                                                         </div>
-                                                                        <a class="button add_to_cart_button" href="{{url('add_to_cart', args=[i.id])}}" rel="nofollow">Add to cart</a>
+                                                                        <a class="button add_to_cart_button" href="{%if verified %}{{url('add_to_cart', args=[i.id])}}{%else%}{{url('login')}}{%endif%}" rel="nofollow">Add to cart</a>
                                                                     </div>
                                                                     {%endfor%}
                                                                     <!-- /.product-outer -->
@@ -396,7 +396,7 @@
                                                                             </div>
                                                                             <span class="review-count">(5)</span>
                                                                         </div>
-                                                                        <a class="button add_to_cart_button" href="{{url('add_to_cart', args=[i.id])}}" rel="nofollow">Add to cart</a>
+                                                                        <a class="button add_to_cart_button" href="{%if verified %}{{url('add_to_cart', args=[i.id])}}{%else%}{{url('login')}}{%endif%}" rel="nofollow">Add to cart</a>
                                                                     </div>
                                                                     {%endfor%}
                                                                     <!-- /.product-outer -->                                                            
@@ -1247,7 +1247,7 @@
                                                                             </div>
                                                                             <span class="review-count">(5)</span>
                                                                         </div>
-                                                                        <a class="button add_to_cart_button" href="{{url('add_to_cart', args=[i.id])}}" rel="nofollow">Add to cart</a>
+                                                                        <a class="button add_to_cart_button" href="{%if verified %}{{url('add_to_cart', args=[i.id])}}{%else%}{{url('login')}}{%endif%}" rel="nofollow">Add to cart</a>
                                                                     </div>
                                                                     {%endfor%}
                                                                     <!-- /.product-outer -->                                                            
@@ -2110,7 +2110,7 @@
                                                                             <!-- .techmarket-product-rating -->
                                                                         </a>
                                                                         <div class="hover-area">
-                                                                            <a class="button add_to_cart_button" href="{{url('add_to_cart', args=[i.id])}}">Add to cart</a>
+                                                                            <a class="button add_to_cart_button" href="{%if verified %}{{url('add_to_cart', args=[i.id])}}{%else%}{{url('login')}}{%endif%}">Add to cart</a>
                                                                             
                                                                         </div>
                                                                         <!-- .hover-area -->
