@@ -126,7 +126,7 @@
                                                                 </div>
                                                                 <span class="review-count">({{i.rating_count()}})</span>
                                                             </div>
-                                                            <a class="button add_to_cart_button" href="{%if verified %}{{url('add_to_cart', args=[i.id])}}{%else%}{{url('login')}}{%endif%}" rel="nofollow">Add to cart</a>
+                                                            <a class="button add_to_cart_button" onclick="addToCart('{{i.id}}')" href="javascript:void(0)" rel="nofollow">Add to cart</a>
                                                         </div>
                                                         {%endfor%}
                                                         <!-- /.product-outer -->
@@ -173,7 +173,7 @@
                                                                             </div>
                                                                             <span class="review-count">({{i.rating_count()}})</span>
                                                                         </div>
-                                                                        <a class="button add_to_cart_button" href="{%if verified %}{{url('add_to_cart', args=[i.id])}}{%else%}{{url('login')}}{%endif%}" rel="nofollow">Add to cart</a>
+                                                                        <a class="button add_to_cart_button" onclick="addToCart('{{i.id}}')" href="javascript:void(0)" rel="nofollow">Add to cart</a>
                                                                     </div>
                                                                     {%endfor%}
                                                                     
@@ -212,7 +212,7 @@
                                                                             </div>
                                                                             <span class="review-count">({{i.rating_count()}})</span>
                                                                         </div>
-                                                                        <a class="button add_to_cart_button" href="{%if verified %}{{url('add_to_cart', args=[i.id])}}{%else%}{{url('login')}}{%endif%}" rel="nofollow">Add to cart</a>
+                                                                        <a class="button add_to_cart_button" onclick="addToCart('{{i.id}}')" href="javascript:void(0)" rel="nofollow">Add to cart</a>
                                                                     </div>
                                                                     {%endfor%}
                                                                     <!-- /.product-outer -->
@@ -250,7 +250,7 @@
                                                                             </div>
                                                                             <span class="review-count">(5)</span>
                                                                         </div>
-                                                                        <a class="button add_to_cart_button" href="{%if verified %}{{url('add_to_cart', args=[i.id])}}{%else%}{{url('login')}}{%endif%}" rel="nofollow">Add to cart</a>
+                                                                        <a class="button add_to_cart_button" onclick="addToCart('{{i.id}}')" href="javascript:void(0)" rel="nofollow">Add to cart</a>
                                                                     </div>
                                                                     {%endfor%}
                                                                     <!-- /.product-outer -->
@@ -332,7 +332,7 @@
                                         <div class="brands">
                                             {%for i in brands%}
                                             <div class="item">
-                                                <a href="#">
+                                                <a href="javascript:void(0)">
                                                     <figure>
                                                         <figcaption class="text-overlay">
                                                             <div class="info">
@@ -396,7 +396,7 @@
                                                                             </div>
                                                                             <span class="review-count">(5)</span>
                                                                         </div>
-                                                                        <a class="button add_to_cart_button" href="{%if verified %}{{url('add_to_cart', args=[i.id])}}{%else%}{{url('login')}}{%endif%}" rel="nofollow">Add to cart</a>
+                                                                        <a class="button add_to_cart_button" onclick="addToCart('{{i.id}}')" href="javascript:void(0)" rel="nofollow">Add to cart</a>
                                                                     </div>
                                                                     {%endfor%}
                                                                     <!-- /.product-outer -->                                                            
@@ -1247,7 +1247,7 @@
                                                                             </div>
                                                                             <span class="review-count">(5)</span>
                                                                         </div>
-                                                                        <a class="button add_to_cart_button" href="{%if verified %}{{url('add_to_cart', args=[i.id])}}{%else%}{{url('login')}}{%endif%}" rel="nofollow">Add to cart</a>
+                                                                        <a class="button add_to_cart_button" onclick="addToCart('{{i.id}}')" href="javascript:void(0)" rel="nofollow">Add to cart</a>
                                                                     </div>
                                                                     {%endfor%}
                                                                     <!-- /.product-outer -->                                                            
@@ -2080,7 +2080,7 @@
                                                             <div class="landscape-product-card product">
                                                                 <div class="media">
                                                                     <div class="yith-wcwl-add-to-wishlist">
-                                                                        <a href="{{url('add_to_wishlist', args=[i.id])}}" rel="nofollow" class="add_to_wishlist"> Add to Wishlist</a>
+                                                                        <a onclick="addToWishlist('{{i.id}}')" href="javascript:void(0);" rel="nofollow" class="add_to_wishlist"> Add to Wishlist</a>
                                                                     </div>
                                                                     <a class="woocommerce-LoopProduct-link" href="{{url('product_detail', args=[i.slug])}}">
                                                                         <img class="wp-post-image" src="{{i.images_product.first().image.url}}" alt="">
@@ -2110,7 +2110,7 @@
                                                                             <!-- .techmarket-product-rating -->
                                                                         </a>
                                                                         <div class="hover-area">
-                                                                            <a class="button add_to_cart_button" href="{%if verified %}{{url('add_to_cart', args=[i.id])}}{%else%}{{url('login')}}{%endif%}">Add to cart</a>
+                                                                            <a class="button add_to_cart_button" onclick="addToCart('{{i.id}}')" href="javascript:void(0)">Add to cart</a>
                                                                             
                                                                         </div>
                                                                         <!-- .hover-area -->
@@ -5346,6 +5346,4 @@
 
     
 </body>
-
-
 {% endblock %}

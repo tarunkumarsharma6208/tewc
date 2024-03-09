@@ -124,10 +124,10 @@ class RecentlyViewed(models.Model):
         ordering = ['-timestamp']
 
 
-class Wishlist(models.Model):
+class Wishlist(Base):
     name = models.CharField(max_length=100, default='wishlist')
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='user_wishlist')
-    products = models.ManyToManyField(Product, blank=True)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, null=True, blank=True)
 
     def __str__(self):
         return f"{self.name}"

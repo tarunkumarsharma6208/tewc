@@ -239,6 +239,47 @@ $('#query').keyup(function () {
 autocomplete(document.getElementById("query"), ourProducts);
 autocomplete(document.getElementById("query1"), ourProducts1);
 </script>
+
+<script>
+    function addToCart(product_id){
+        if (product_id){
+            $.ajax({
+            url: '{{url("add_to_cart")}}',
+            method: 'GET',
+            data: {product_id: product_id},
+            success: function (resp) {
+                // console.log(resp)
+                toastr.success(resp.message)
+            },
+            
+        });
+        }
+        
+    }
+
+    function addToWishlist(product_id){
+        if (product_id){
+            $.ajax({
+            url: '{{url("add_to_wishlist")}}',
+            method: 'GET',
+            data: {product_id: product_id},
+            success: function (resp) {
+                // console.log(resp)
+                if (resp.type == 'success'){
+                    toastr.success(resp.message)
+                }else if(resp.type == 'info'){
+                    toastr.info(resp.message)
+                }else{
+                    tostar.error(resp.message)
+                }
+                
+            },
+            
+        });
+        }
+        
+    }
+</script>
         
     {% block extra_script%}
     {%endblock%}

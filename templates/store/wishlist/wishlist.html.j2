@@ -16,20 +16,20 @@
                 
                 <div class="row">
                     <nav class="woocommerce-breadcrumb">
-                        <a href="home-v1.html">Home</a>
+                        <a href="/">Home</a>
                         <span class="delimiter">
                             <i class="tm tm-breadcrumbs-arrow-right"></i>
                         </span>
                         Wishlist
                     </nav>
                     <!-- .woocommerce-breadcrumb -->
-                    {%for w in wish_list%}
+                    
                     <div id="primary" class="content-area">
                         <main id="main" class="site-main">
                             <div class="type-page hentry">
                                 <header class="entry-header">
                                     <div class="page-header-caption">
-                                        <h1 class="entry-title">{{w.name}}</h1>
+                                        <h1 class="entry-title">My Wishlist</h1>
                                     </div>
                                 </header>
                                 <!-- .entry-header -->
@@ -58,47 +58,51 @@
                                             </thead>
                                             <tbody>
                                                 
-                                                {%set products = w.products.all()%}
-                                                {%for i in products%}
-
+                                                
+                                                {%for i in wish_list%}
+                                                {%set p = i.product%}
+                                                {%if p%}
                                                 <tr>
                                                     <td class="product-remove">
                                                         <div>
-                                                            <a title="Remove this product" class="remove remove_from_wishlist" href="#">×</a>
+                                                            <a title="Remove this product" class="remove remove_from_wishlist" href="{{url('remove_from_wishlist', args=[p.id])}}">×</a>
                                                         </div>
                                                     </td>
                                                     <td class="product-thumbnail">
-                                                        <a href="{{url('product_detail', args=[i.slug])}}">
-                                                            {%if i.images_product.all()%}
-                                                            <img width="180" height="180" alt="" class="wp-post-image" src="{{i.images_product.first().image.url}}">
+                                                        <a href="{{url('product_detail', args=[p.slug])}}">
+                                                            {%if i.product%}
+                                                            <img width="180" height="180" alt="" class="wp-post-image" src="{{p.images_product.first().image.url}}">
                                                             {%endif%}
                                                         </a>
                                                     </td>
                                                     <td class="product-name">
-                                                        <a href="single-product-fullwidth.html">{{i.name}} &amp; GPS</a>
+                                                        <a href="{{url('product_detail', args=[p.slug])}}">{{p.name}} &amp; GPS</a>
                                                     </td>
                                                     <td class="product-price">
                                                         <ins>
                                                             <span class="woocommerce-Price-amount amount">
-                                                                <span class="woocommerce-Price-currencySymbol">Rs</span>{{i.discounted_price()}}</span>
+                                                                <span class="woocommerce-Price-currencySymbol">Rs</span>{{p.discounted_price()}}</span>
                                                         </ins>
                                                         <del>
                                                             <span class="woocommerce-Price-amount amount">
-                                                                <span class="woocommerce-Price-currencySymbol">Rs</span>{{i.rate}}</span>
+                                                                <span class="woocommerce-Price-currencySymbol">Rs</span>{{p.rate}}</span>
                                                         </del>
                                                     </td>
                                                     <td class="product-stock-status">
-                                                        {%if i.is_in_stock()%}
+                                                        {%if p.is_in_stock()%}
                                                         <span class="wishlist-in-stock">In Stock</span>
                                                         {%else%}
                                                         <span class="out-of-stock">Out of Stock</span>
                                                         {%endif%}
                                                     </td>
                                                     <td class="product-add-to-cart">
-                                                        <a class="button add_to_cart_button button alt" href="{{url('add_to_cart', args=[i.id])}}"> Add to Cart</a>
+                                                        <a class="button add_to_cart_button button alt" onclick="addToCart('{{i.id}}')" href="javascript:void(0)"> Add to Cart</a>
                                                     </td>
                                                 </tr>
+                                                {%else%}
+                                                {%endif%}
                                                 {%endfor%}
+                                               
                                                 
                                                 
                                             </tbody>
@@ -114,7 +118,7 @@
                         </main>
                         <!-- #main -->
                     </div>
-                    {%endfor%}
+                    
                     <!-- #primary -->
                 </div>
                 

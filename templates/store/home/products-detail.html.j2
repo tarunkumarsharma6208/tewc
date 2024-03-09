@@ -38,8 +38,8 @@
                                                     <figure class="woocommerce-product-gallery__wrapper ">
                                                         {%set product_images = product.images_product.all()%}
                                                         {%for i in product_images %}
-                                                        <div data-thumb="assets/images/products/sm-card-1.jpg" class="woocommerce-product-gallery__image">
-                                                            <a href="assets/images/products/big-card.jpg" tabindex="0">
+                                                        <div data-thumb="{{i.image.url}}" class="woocommerce-product-gallery__image">
+                                                            <a href="{{i.image.url}}" tabindex="0">
                                                                 <img width="600" height="600" src="{{i.image.url}}" class="attachment-shop_single size-shop_single wp-post-image" alt="">
                                                             </a>
                                                         </div>
@@ -55,7 +55,7 @@
                                                         <img width="180" height="180" src="assets/images/products/sm-card-1.jpg" class="attachment-shop_thumbnail size-shop_thumbnail wp-post-image" alt="">
                                                     </figure> -->
                                                     {%for i in product_images %}
-                                                    <figure data-thumb="assets/images/products/sm-card-3.jpg" class="techmarket-wc-product-gallery__image">
+                                                    <figure data-thumb="{{i.image.url}}" class="techmarket-wc-product-gallery__image">
                                                         <img width="180" height="180" src="{{i.image.url}}" class="attachment-shop_thumbnail size-shop_thumbnail" alt="">
                                                     </figure>
                                                     {%endfor%}
@@ -70,18 +70,18 @@
                                     <div class="summary entry-summary">
                                         <div class="single-product-header">
                                             <h1 class="product_title entry-title">{{product.name}}</h1>
-                                            <a class="add-to-wishlist" href="{%if verified%}{{url('add_to_wishlist', args=[product.id])}}{%else%}{{url('login')}}{%endif%}"> Add to Wishlist</a>
+                                            <a class="add-to-wishlist" onclick="addToWishlist('{{product.id}}')" href="#"> Add to Wishlist</a>
                                         </div>
                                         <!-- .single-product-header -->
                                         <div class="single-product-meta">
-                                            <div class="brand">
+                                            <!-- <div class="brand">
                                                 <a href="#">
                                                     <img alt="galaxy" src="assets/images/brands/5.png">
                                                 </a>
-                                            </div>
+                                            </div> -->
                                             <div class="cat-and-sku">
                                                 <span class="posted_in categories">
-                                                    <a rel="tag" href="product-category.html">TV &amp; Video</a>
+                                                    <a rel="tag" href="#">TV &amp; Video</a>
                                                 </span>
                                                 <span class="sku_wrapper">SKU:
                                                     <span class="sku">5487FB8/11</span>
@@ -132,12 +132,10 @@
                                                 </p>
                                                 <!-- .single-product-header -->
                                                 <form enctype="multipart/form-data" method="post" class="cart">
-                                                    <div class="quantity">
-                                                        <label for="quantity-input">Quantity</label>
-                                                        <input type="number" size="4" class="input-text qty text" title="Qty" value="1" name="quantity" id="quantity-input">
-                                                    </div>
-                                                    <!-- .quantity -->
-                                                    <button class="single_add_to_cart_button button alt" value="185" name="add-to-cart" type="submit">Add to cart</button>
+
+                                                    <a class="single_add_to_cart_button button alt" onclick="addToCart('{{product.id}}')" href="javascript:void(0)" name="add-to-cart" type="submit">Add to cart</a>
+
+                                                    <a class="single_add_to_cart_button button alt" href="{{url('cart_view')}}" name="add-to-cart" type="submit">Buy Now</a>
                                                 </form>
                                                 <!-- .cart -->
                                                 
@@ -415,7 +413,7 @@
                                             {% for i in related_products%}
                                             <div class="product">
                                                 <div class="yith-wcwl-add-to-wishlist">
-                                                    <a href="{%if verified%}{{url('add_to_wishlist', args=[i.id])}}{%else%}{{url('login')}}{%endif%}" rel="nofollow" class="add_to_wishlist"> Add to Wishlist</a>
+                                                    <a onclick="addToWishlist('{{i.id}}')" href="#" rel="nofollow" class="add_to_wishlist"> Add to Wishlist</a>
                                                 </div>
                                                 <a href="{{url('product_detail', args=[i.slug])}}" class="woocommerce-LoopProduct-link">
                                                     <img src="{%if i.images_product%}{{i.images_product.first().image.url}}{%else%}{%endif%}" width="224" height="197" class="wp-post-image" alt="">
@@ -429,7 +427,7 @@
                                                     <h2 class="woocommerce-loop-product__title">{{i.name}}</h2>
                                                 </a>
                                                 <div class="hover-area">
-                                                    <a class="button add_to_cart_button" href="{%if verified%}{{url('add_to_cart', args=[i.id])}}{%else%}{{url('login')}}{%endif%}" rel="nofollow">Add to cart</a>
+                                                    <a class="button add_to_cart_button" onclick="addToCart('{{i.id}}')" href="javascript:void(0)" rel="nofollow">Add to cart</a>
                                                     
                                                 </div>
                                             </div>
@@ -515,4 +513,26 @@
     
 </body>
 
+{%endblock%}
+
+{% block extra_script%}
+   
+<script>
+    function changeQuentity(el){
+        if (el.value){
+            $.ajax({
+                type: 'GET',
+                url: '{{url("increse_prod_quentity")}}',  // Replace with your actual URL
+                data:{'product_id': el.dataset.pid, 'quentity': el.value},
+                success: function (data) {
+                    window.location.reload()
+                },
+                error: function (error) {
+                    console.error('Error calling Django function:', error);
+                }
+        });
+        }
+        
+    }
+</script>
 {%endblock%}

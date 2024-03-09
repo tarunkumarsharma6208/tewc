@@ -2,6 +2,7 @@ from accounts.models import *
 from .models import *
 from django.http import JsonResponse
 from django.contrib import messages
+from django.shortcuts import get_object_or_404, redirect
 
 
 def increse_prod_quentity(request):
@@ -50,3 +51,57 @@ def get_products_query(request):
         for i in obj:
             l.append(i.name)
     return JsonResponse(l, safe=False)
+
+
+def add_to_cart(request):
+    # Get the product
+    if request.user.is_authenticated:
+        if request.method == 'GET':
+            product_id = request.GET.get('product_id')
+            product = get_object_or_404(Product, pk=product_id)
+
+            # Get or create the user's cart
+            cart, created = Cart.objects.get_or_create(user=request.user)
+
+            # Get or create the cart item for the product
+            cart_item, item_created = CartItem.objects.get_or_create(product=product)
+
+            # If the item is already in the cart, increment the quantity
+            if not item_created:
+                cart_item.quantity += 1
+                cart_item.save()
+
+            # Associate the cart item with the user's cart
+            cart.items.add(cart_item)
+            msg = f'{product.name} has been added to your cart'
+            return JsonResponse({'message': msg})
+        else:
+            return JsonResponse({'message': "somthings went wrong"})
+
+    else:
+        return JsonResponse({'message': 'Please login first!'})
+
+
+# @login_required(login_url='/account/login/')
+def add_to_wishlist(request):
+    # Get the product
+    if request.user.is_authenticated:
+        if request.method == 'GET':
+            product_id = request.GET.get('product_id')
+            # print(product_id, '==================')
+            product = get_object_or_404(Product, pk=product_id)
+
+            if Wishlist.objects.filter(user=request.user, product=product).exists():
+                msg = f'Already this product exist in wishlist'
+                return JsonResponse({'message': msg, 'type': 'info'})
+            else:
+                # Check if the user already has a wishlist
+                Wishlist.objects.create(user=request.user, product=product)
+
+                msg = f'{product.name} has been added to your wishlist'
+                return JsonResponse({'message': msg, 'type': 'success'})
+        else:
+            return JsonResponse({'message': "somthings went wrong", 'type': 'error'})
+
+    else:
+        return JsonResponse({'message': 'Please login first!', 'type': 'error'})

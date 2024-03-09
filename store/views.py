@@ -7,6 +7,7 @@ from django.db.models import F, ExpressionWrapper, DecimalField
 from django.contrib import messages
 from django.db import transaction
 from .choices import *
+from django.http import JsonResponse
 # Create your views here.
 
 def index(request):
@@ -75,25 +76,26 @@ def cart_view(request):
     return render(request, 'store/cart/cart.html.j2', {'cart_items': cart_items, 'total_price': price})
 
 # @login_required
-def add_to_cart(request, product_id):
-    # Get the product
-    product = get_object_or_404(Product, pk=product_id)
+# def add_to_cart(request, product_id):
+#     # Get the product
+#     product = get_object_or_404(Product, pk=product_id)
 
-    # Get or create the user's cart
-    cart, created = Cart.objects.get_or_create(user=request.user)
+#     # Get or create the user's cart
+#     cart, created = Cart.objects.get_or_create(user=request.user)
 
-    # Get or create the cart item for the product
-    cart_item, item_created = CartItem.objects.get_or_create(product=product)
+#     # Get or create the cart item for the product
+#     cart_item, item_created = CartItem.objects.get_or_create(product=product)
 
-    # If the item is already in the cart, increment the quantity
-    if not item_created:
-        cart_item.quantity += 1
-        cart_item.save()
+#     # If the item is already in the cart, increment the quantity
+#     if not item_created:
+#         cart_item.quantity += 1
+#         cart_item.save()
 
-    # Associate the cart item with the user's cart
-    cart.items.add(cart_item)
+#     # Associate the cart item with the user's cart
+#     cart.items.add(cart_item)
 
-    return redirect('cart_view')
+#     #return redirect('cart_view')
+#     return JsonResponse({'message': 'Done'})
 
 def remove_from_cart(request, product_id):
     # Get the product
@@ -179,16 +181,15 @@ def checkout(request):
 
     return render(request, 'store/checkout/checkout.html.j2', context)
 
-@login_required(login_url='/account/login/')
-def add_to_wishlist(request, product_id):
+
+def remove_from_wishlist(request, product_id):
     # Get the product
     product = get_object_or_404(Product, pk=product_id)
 
-    # Check if the user already has a wishlist
-    wish_item, created = Wishlist.objects.get_or_create(user=request.user)
+    # Get or create the user's cart
+    cart = Wishlist.objects.filter(user=request.user, product=product)
 
-    # Add the product to the wishlist
-    wish_item.products.add(product)
+    cart.delete()
 
     return redirect('wishlist_view')
 
