@@ -72,3 +72,6 @@ def user_logout(request):
     logout(request)
     messages.info(request, 'You have been logged out.')
     return redirect('home')
+
+def about_us(request):
+    return render(request, 'accounts/aboutus.html.j2')

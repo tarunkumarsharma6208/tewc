@@ -108,7 +108,7 @@
                                                     <div class="products">
                                                         {%for i in trending_products%}
                                                         <div class="product product-featured">
-                                                            <a href="{{url('product_detail', args=[i.slug])}}" class="woocommerce-LoopProduct-link">
+                                                            <a href="{{url('product_detail', args=[i.slug])}}" class="woocommerce-LoopProduct-link" onclick="addToRecentView('{{i.id}}')">
                                                                 <img width="224" height="197" src="{{i.images_product.first().image.url}}" class="wp-post-image" alt="">
                                                                 <span class="price">
                                                                     <ins>
@@ -155,7 +155,7 @@
                                                                 <div class="products">
                                                                     {%for i in products%}
                                                                     <div class="product product-featured">
-                                                                        <a href="{{url('product_detail', args=[i.slug])}}" class="woocommerce-LoopProduct-link">
+                                                                        <a href="{{url('product_detail', args=[i.slug])}}" class="woocommerce-LoopProduct-link" onclick="addToRecentView('{{i.id}}')">
                                                                             <img width="224" height="197" src="{{i.images_product.first().image.url}}" class="wp-post-image" alt="">
                                                                             <span class="price">
                                                                                 <ins>
@@ -194,7 +194,7 @@
                                                                 <div class="products">
                                                                     {%for i in products%}
                                                                     <div class="product product-featured">
-                                                                        <a href="{{url('product_detail', args=[i.slug])}}" class="woocommerce-LoopProduct-link">
+                                                                        <a href="{{url('product_detail', args=[i.slug])}}" class="woocommerce-LoopProduct-link" onclick="addToRecentView('{{i.id}}')">
                                                                             <img width="224" height="197" src="{{i.images_product.first().image.url}}" class="wp-post-image" alt="">
                                                                             <span class="price">
                                                                                 <ins>
@@ -232,7 +232,7 @@
                                                                 <div class="products">
                                                                     {%for i in products%}
                                                                     <div class="product product-featured">
-                                                                        <a href="{{url('product_detail', args=[i.slug])}}" class="woocommerce-LoopProduct-link">
+                                                                        <a href="{{url('product_detail', args=[i.slug])}}" class="woocommerce-LoopProduct-link" onclick="addToRecentView('{{i.id}}')">
                                                                             <img width="224" height="197" src="{{i.images_product.first().image.url}}" class="wp-post-image" alt="">
                                                                             <span class="price">
                                                                                 <ins>
@@ -288,7 +288,7 @@
                                                     <div class="products">
                                                         {%for i in top_rated_products%}
                                                         <div class="landscape-product-widget product">
-                                                            <a class="woocommerce-LoopProduct-link" href="{{url('product_detail', args=[i.slug])}}">
+                                                            <a class="woocommerce-LoopProduct-link" href="{{url('product_detail', args=[i.slug])}}" onclick="addToRecentView('{{i.id}}')">
                                                                 <div class="media">
                                                                     <img class="wp-post-image" src="{{i.images_product.first().image.url}}" alt="">
                                                                     <div class="media-body">
@@ -378,7 +378,7 @@
                                                                 <div class="products">
                                                                     {%for i in latest_products %}
                                                                     <div class="product product-featured">
-                                                                        <a href="{{url('product_detail', args=[i.slug])}}" class="woocommerce-LoopProduct-link">
+                                                                        <a href="{{url('product_detail', args=[i.slug])}}" class="woocommerce-LoopProduct-link" onclick="addToRecentView('{{i.id}}')">
                                                                             <img width="224" height="197" src="{{i.images_product.first().image.url}}" class="wp-post-image" alt="">
                                                                             <span class="price">
                                                                                 <ins>
@@ -1229,7 +1229,7 @@
                                                                 <div class="products">
                                                                     {%for i in latest_products %}
                                                                     <div class="product product-featured">
-                                                                        <a href="{{url('product_detail', args=[i.slug])}}" class="woocommerce-LoopProduct-link">
+                                                                        <a href="{{url('product_detail', args=[i.slug])}}" class="woocommerce-LoopProduct-link" onclick="addToRecentView('{{i.id}}')">
                                                                             <img width="224" height="197" src="{{i.images_product.first().image.url}}" class="wp-post-image" alt="">
                                                                             <span class="price">
                                                                                 <ins>
@@ -2082,7 +2082,7 @@
                                                                     <div class="yith-wcwl-add-to-wishlist">
                                                                         <a onclick="addToWishlist('{{i.id}}')" href="javascript:void(0);" rel="nofollow" class="add_to_wishlist"> Add to Wishlist</a>
                                                                     </div>
-                                                                    <a class="woocommerce-LoopProduct-link" href="{{url('product_detail', args=[i.slug])}}">
+                                                                    <a class="woocommerce-LoopProduct-link" href="{{url('product_detail', args=[i.slug])}}" onclick="addToRecentView('{{i.id}}')">
                                                                         <img class="wp-post-image" src="{{i.images_product.first().image.url}}" alt="">
                                                                     </a>
                                                                     <div class="media-body">

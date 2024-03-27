@@ -279,6 +279,20 @@ autocomplete(document.getElementById("query1"), ourProducts1);
         }
         
     }
+
+    function addToRecentView(product_id){
+        if (product_id){
+            $.ajax({
+            url: '{{url("add_to_recently_view")}}',
+            method: 'GET',
+            data: {product_id: product_id},
+            success: function (resp) {
+                
+            },
+            
+        });
+        }
+    }
 </script>
         
     {% block extra_script%}

@@ -105,3 +105,26 @@ def add_to_wishlist(request):
 
     else:
         return JsonResponse({'message': 'Please login first!', 'type': 'error'})
+    
+
+def add_to_recently_view(request):
+    # Get the product
+    if request.user.is_authenticated:
+        if request.method == 'GET':
+            product_id = request.GET.get('product_id')
+            # print(product_id, '==================')
+            product = get_object_or_404(Product, pk=product_id)
+
+            if RecentlyViewed.objects.filter(user=request.user, product=product).exists():
+                
+                return JsonResponse({'message': '', 'type': 'info'})
+            else:
+                # Check if the user already has a wishlist
+                RecentlyViewed.objects.create(user=request.user, product=product)
+
+                return JsonResponse({'message': '', 'type': 'success'})
+        else:
+            return JsonResponse({'message': "somthings went wrong", 'type': 'error'})
+
+    else:
+        return JsonResponse({'message': 'Please login first!', 'type': 'error'})

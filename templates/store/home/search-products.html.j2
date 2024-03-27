@@ -38,7 +38,7 @@
                                                     <a onclick="addToWishlist('{{i.id}}')" href="#" rel="nofollow" class="add_to_wishlist"> Add to Wishlist</a>
                                                 </div>
                                                 <!-- .yith-wcwl-add-to-wishlist -->
-                                                <a class="woocommerce-LoopProduct-link woocommerce-loop-product__link" href="{{url('product_detail', args=[i.slug])}}">
+                                                <a class="woocommerce-LoopProduct-link woocommerce-loop-product__link" href="{{url('product_detail', args=[i.slug])}}" onclick="addToRecentView('{{i.id}}')">
                                                     {% if i.images_product.all() %}
                                                         {% set first_image = i.images_product.first() %}
                                                         {% if first_image and first_image.image %}
