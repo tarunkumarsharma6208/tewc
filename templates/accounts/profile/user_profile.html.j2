@@ -1,0 +1,98 @@
+{% extends 'store/base.html.j2' %}
+{% block title %}Accounts{% endblock %}
+
+{%block content%}
+<body class="woocommerce-active left-sidebar">
+    <div id="page" class="hfeed site">
+        
+        <!-- .top-bar-v1 -->
+       {% include 'store/header/header-v1.html.j2' %}
+        <!-- .header-v1 -->
+        <!-- ============================================================= Header End ============================================================= -->
+        <div id="content" class="site-content" tabindex="-1">
+            <div class="col-full">
+                <div class="row">
+                    <nav class="woocommerce-breadcrumb">
+                        <a href="/">Home</a>
+                        <span class="delimiter">
+                            <i class="tm tm-breadcrumbs-arrow-right"></i>
+                        </span>
+                       
+                    </nav>
+                    <!-- .woocommerce-breadcrumb -->
+                    <div id="primary" class="content-area">
+                        <main id="main" class="site-main">
+                            <h1>Profile Details</h1>
+                          {%set usr = request.user%}
+                            <div class="row">
+                                <div class="col-12">
+                                    Name: {{usr.first_name}} {{usr.last_name}}
+                                </div>
+
+                                <div class="col-12">
+                                    Username: {{usr.username}}
+                                </div>
+
+                                <div class="col-12">
+                                    Mobile No: {{usr.mobile}}
+                                </div>
+
+                                <div class="col-12">
+                                    Email: {{usr.email}}
+                                </div>
+
+                                <div class="col-12">
+                                    Date of birth: {{usr.dob}}
+                                </div>
+                            </div>
+                           
+                        </main>
+                        <!-- #main -->
+                    </div>
+                   
+                    <!-- #primary -->
+                    <div id="secondary" class="widget-area shop-sidebar" role="complementary">
+                        <div class="widget woocommerce widget_product_categories techmarket_widget_product_categories" id="techmarket_product_categories_widget-2">
+                            <ul class="product-categories ">
+                                <li class="product_cat">
+                                    <span>Accounts Details</span>
+                                    <ul>
+                                        <li class="cat-item nav-tabs">
+                                            <a href="{{url('user_order_details')}}">
+                                                <span class="no-child"></span>Oders</a>
+                                        </li>
+                                        <li class="cat-item">
+                                            <a href="{{url('user_wishlist_details')}}">
+                                                <span class="no-child"></span>Wishlist</a>
+                                        </li>
+
+                                        <li class="cat-item">
+                                            <a href="{{url('user_address_details')}}">
+                                                <span class="no-child"></span>Address</a>
+                                        </li>
+
+                                        <li class="cat-item">
+                                            <a href="{{url('user_profile_details')}}">
+                                                <span class="no-child"></span>Profile</a>
+                                        </li>
+                                        
+                                        
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                       
+                      
+                    </div>
+                </div>
+                <!-- .row -->
+            </div>
+            <!-- .col-full -->
+        </div>
+   
+        {% include 'store/footer/footer-v1.html.j2' %}
+        <!-- .site-footer -->
+    </div>
+    
+</body>
+{%endblock%}

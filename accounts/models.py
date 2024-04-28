@@ -52,3 +52,6 @@ class Address(models.Model):
 
     def __str__(self) -> str:
         return f'{self.address}'
+    
+    class Meta:
+        ordering = ['-id']

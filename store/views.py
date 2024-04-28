@@ -63,7 +63,7 @@ def product_detail(request, product_slug):
     })
     return render(request, 'store/home/products-detail.html.j2', context)
 
-# @login_required
+@login_required(login_url='/account/login/')
 def cart_view(request):
     # cart = get_object_or_404(Cart, user=request.user)
     cart_items = Cart.objects.get(user=request.user)
@@ -101,6 +101,7 @@ def cart_view(request):
 #     #return redirect('cart_view')
 #     return JsonResponse({'message': 'Done'})
 
+@login_required(login_url='/account/login/')
 def remove_from_cart(request, product_id):
     # Get the product
     product = get_object_or_404(Product, pk=product_id)
@@ -117,6 +118,7 @@ def remove_from_cart(request, product_id):
 
     return redirect('cart_view')
 
+@login_required(login_url='/account/login/')
 def save_user_address(request):
     if request.method == 'POST':
         state = request.POST.get('state')
@@ -185,7 +187,7 @@ def checkout(request):
 
     return render(request, 'store/checkout/checkout.html.j2', context)
 
-
+@login_required(login_url='/account/login/')
 def remove_from_wishlist(request, product_id):
     # Get the product
     product = get_object_or_404(Product, pk=product_id)
@@ -197,6 +199,7 @@ def remove_from_wishlist(request, product_id):
 
     return redirect('wishlist_view')
 
+@login_required(login_url='/account/login/')
 def wishlist_view(request):
     context = {}
     wish_list = Wishlist.objects.filter(user=request.user)
@@ -206,6 +209,7 @@ def wishlist_view(request):
     return render(request, 'store/wishlist/wishlist.html.j2', context)
 
 
+@login_required(login_url='/account/login/')
 def order_tracking(request):
     context = {}
     order = Order.objects.filter(buyer=request.user)
@@ -221,7 +225,40 @@ def search_products(request):
     context['products'] = products
     return render(request, 'store/home/search-products.html.j2', context)
 
+#user profile
+@login_required(login_url='/account/login/')
+def user_profile_details(request):
+    context = {}
+    return render(request, 'accounts/profile/user_profile.html.j2', context)
 
+
+@login_required(login_url='/account/login/')
+def user_order_details(request):
+    context = {}
+    orders = Order.objects.filter(buyer=request.user)
+    
+    context['orders'] = orders
+    return render(request, 'accounts/profile/user_order.html.j2', context)
+
+
+@login_required(login_url='/account/login/')
+def user_wishlist_details(request):
+    context = {}
+    
+    wishlist = Wishlist.objects.filter(user=request.user)
+
+    context['wishlist'] = wishlist
+    return render(request, 'accounts/profile/user_wishlist.html.j2', context)
+
+@login_required(login_url='/account/login/')
+def user_address_details(request):
+    context = {}
+    address = Address.objects.filter(user=request.user)
+    
+
+    context['address'] = address
+
+    return render(request, 'accounts/profile/user_address.html.j2', context)
 
 #=====admin section ===========
 def store_admin(request):

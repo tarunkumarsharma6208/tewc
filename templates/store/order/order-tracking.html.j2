@@ -47,11 +47,7 @@
                                                     <td>{{i.product.name}}</td>
                                                     <td>{{i.quantity}}</td>
                                                     <td>
-                                                        {%for  j in ORDER_STATUS%}
-                                                        {%if i.status == j.0 %}
-                                                        {{j.1}}
-                                                        {%endif%}
-                                                        {%endfor%}
+                                                        {{i.get_status_display()}}
                                                     </td>
                                                 </tr>
                                                 {%endfor%}

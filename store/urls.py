@@ -19,6 +19,12 @@ urlpatterns = [
     path('search/products/', search_products, name='search_products'),
     path('save_user_address', save_user_address, name='save_user_address'),
 
+
+    path('profile/details/', user_profile_details, name='user_profile_details'),
+    path('order/details/', user_order_details, name='user_order_details'),
+    path('wishlist/details/', user_wishlist_details, name='user_wishlist_details'),
+    path('address/details/', user_address_details, name='user_address_details'),
+
     #admin urls
     path('store/admin/', store_admin, name='store_admin'),
 ]

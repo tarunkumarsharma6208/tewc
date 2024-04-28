@@ -31,14 +31,16 @@ def activate_addtess(request):
     if request.method == 'GET':
         id = request.GET.get('address_id')
         
-        ad = Address.objects.get(id=id)
+        Address.objects.filter(user=request.user).update(is_active=False)
 
-        if ad.is_active == False:
-            ad.is_active = True
-            ad.save()
-        elif ad.is_active == True:
-            ad.is_active = False
-            ad.save()
+        Address.objects.filter(id=id, user=request.user).update(is_active=True)
+        # default = ad.get(id=id)
+        # if default.is_active == False:
+        #     default.is_active = True
+        #     default.save()
+        # elif default.is_active == True:
+        #     default.is_active = False
+        #     default.save()
 
     return JsonResponse({'message': 'quentity incresed'})
 

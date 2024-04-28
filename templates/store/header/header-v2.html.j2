@@ -602,9 +602,20 @@ input[type=submit] {
                     </a>
                 </li>
             </ul>
+
+            <ul class="header-wishlist nav navbar-nav">
+                <li class="nav-item">
+                    <a href="{{url('user_profile_details')}}" class="nav-link">
+                        <i class="tm tm-login-register"></i>
+                        
+                    </a>
+                </li>
+            </ul>
+
             <!-- .header-wishlist -->
             <ul id="site-header-cart" class="site-header-cart menu">
                 <li class="animate-dropdown dropdown ">
+                    
                     <a class="cart-contents" href="{{url('cart_view')}}" title="View your shopping cart">
                         <i class="tm tm-shopping-bag"></i>
                         {%if request.user.user_cartitem%}
@@ -615,8 +626,11 @@ input[type=submit] {
                         <span class="count"></span>
                         
                     </a>
+                   
                 </li>
             </ul>
+
+            
 
             <ul class="nav navbar-nav">
                 <li class="nav-item">
@@ -658,7 +672,7 @@ input[type=submit] {
         <div class="handheld-header">
             <div class="row">
                 <div class="site-branding">
-                    <a href="home-v1.html" class="custom-logo-link" rel="home">
+                    <a href="/" class="custom-logo-link" rel="home">
                         <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 176 28">
                             <defs>
                                 <style>
@@ -702,18 +716,26 @@ input[type=submit] {
                 <div class="handheld-header-links">
                     <ul class="columns-3">
                         <li class="my-account">
-                            <a href="login-and-register.html" class="has-icon">
+                            <a href="" class="has-icon">
                                 <i class="tm tm-login-register"></i>
                             </a>
                         </li>
                         <li class="wishlist">
-                            <a href="wishlist.html" class="has-icon">
+                            <a href="{{url('wishlist_view')}}" class="has-icon">
                                 <i class="tm tm-favorites"></i>
-                                <span class="count">3</span>
+                                <span class="count">
+                                    {%if request.user.user_wishlist%}
+                                    {{request.user.user_wishlist.all().count()}}
+                                    {%else%}
+                                    0
+                                    {%endif%}
+                                </span>
                             </a>
                         </li>
                        
                     </ul>
+
+                    
                     <!-- .columns-3 -->
                 </div>
                 <!-- .handheld-header-links -->
@@ -1208,10 +1230,20 @@ input[type=submit] {
                         <!-- .widget -->
                     </div>
                     <!-- .site-search -->
-                    <a class="handheld-header-cart-link has-icon" href="cart.html" title="View your shopping cart">
+                   
+                    {%if request.user.is_authenticated%}
+                    <a class="handheld-header-cart-link has-icon" href="{{url('cart_view')}}" title="View your shopping cart">
                         <i class="tm tm-shopping-bag"></i>
-                        <span class="count">2</span>
+                        <span class="count">
+                        {%if request.user.user_cartitem%}
+                        {{request.user.user_cartitem.items.all().count()}}
+                        {%else%}
+                        0
+                        {%endif%}
+                        </span>
+                        
                     </a>
+                    {%endif%}
                 </div>
                 <!-- /.row -->
             </div>

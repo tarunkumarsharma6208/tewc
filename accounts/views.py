@@ -8,12 +8,17 @@ from store.models import *
 # Create your views here.
 
 def user_login(request):
+    if request.user.is_authenticated:
+        return redirect('/')
+    
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
         print(username ,len(username))
         print(password)
-        print('------------------------------------')
+        # print('------------------------------------')
+        
+            
         if username == '' or username == None or len(username) < 10:
             messages.error(request, 'Invalid Mobile Number. Please try again.')
             return redirect('login')
