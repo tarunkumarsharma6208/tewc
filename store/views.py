@@ -7,6 +7,7 @@ from django.db.models import F, ExpressionWrapper, DecimalField
 from django.contrib import messages
 from django.db import transaction
 from .choices import *
+from .forms import *
 from django.http import JsonResponse
 # Create your views here.
 
@@ -267,3 +268,43 @@ def store_admin(request):
     context.update({'order': order})
     return render(request, 'admin/home.html.j2', context)
 
+@login_required(login_url='/account/login/')
+def products_admin(request):
+
+
+    products = Product.objects.all().order_by('-id')
+
+    product_form = ProductForm()
+    context = {
+        'products': products,
+        'product_form': product_form,
+    }
+
+    if request.method == 'POST':
+        product_form = ProductForm(request.POST)
+
+        if product_form.is_valid():
+            try:
+                with transaction.atomic():
+                    product = product_form.save()
+
+                    image1 = request.FILES.get('image1')
+                    image2 = request.FILES.get('image2')
+                    image3 = request.FILES.get('image3')
+                    image4 = request.FILES.get('image4')
+
+                    # Save images
+                
+                    ProductImage(product=product, image=image1).save()
+                    ProductImage(product=product, image=image2).save()
+                    ProductImage(product=product, image=image3).save()
+                    ProductImage(product=product, image=image4).save()
+                    messages.success(request, 'Product and images were successfully saved.')
+                return redirect('products_admin')
+            except Exception as e:
+                messages.error(request, f'{e}')
+                    
+            
+            return redirect('products_admin')  # Redirect to a product list view or any other view
+        
+    return render(request, 'admin/products.html.j2', context)

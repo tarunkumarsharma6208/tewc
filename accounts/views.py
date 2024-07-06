@@ -28,7 +28,10 @@ def user_login(request):
             if user is not None:
                 login(request, user)
                 messages.success(request, 'Login successful.')
-                return redirect('home')  # Redirect to your home page
+                if user.role == 'admin':
+                    return redirect('store_admin')
+                else:
+                    return redirect('home')  # Redirect to your home page
             else:
                 messages.error(request, 'Mobile or password is incorrect. Please try again.')
                 return redirect('login')

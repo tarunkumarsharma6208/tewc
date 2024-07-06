@@ -2,6 +2,7 @@ from django.db import models
 from accounts.models import *
 from .choices import *
 from django.utils import timezone
+from django.utils.text import slugify
 
 class Base(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
@@ -26,6 +27,9 @@ class Brands(Base):
     name = models.CharField(max_length=100, default='NA')
     image = models.ImageField(upload_to='brands/', null=True)
 
+    def __str__(self) -> str:
+        return str(self.name)
+
 class Product(Base):
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='category_product')
     brand = models.ForeignKey(Brands, on_delete=models.CASCADE, related_name='product_brand', null=True)
@@ -38,6 +42,11 @@ class Product(Base):
     start_date = models.DateField(null=True, blank=True)
     end_date = models.DateField(null=True, blank=True)
     stock = models.PositiveIntegerField(default=0)
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.name)
+        super().save(*args, **kwargs)
 
     def is_in_stock(self, quantity=1):
         return self.stock >= quantity

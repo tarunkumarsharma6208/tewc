@@ -27,4 +27,5 @@ urlpatterns = [
 
     #admin urls
     path('store/admin/', store_admin, name='store_admin'),
+    path('products/admin/', products_admin, name="products_admin"),
 ]
