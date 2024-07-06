@@ -4,7 +4,8 @@
 venv/
 
 # Ignore Django migration files
-**/migrations/
+
+*/migration/
 
 # Ignore local settings
 .env
