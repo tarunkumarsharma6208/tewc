@@ -25,14 +25,16 @@
                             <div class="shop-archive-header">
                                 <div class="jumbotron">
                                     <div class="jumbotron-img">
-                                        <img width="416" height="283" alt="" src="{{static('assets/images/products/jumbo.jpg')}}" class="jumbo-image alignright">
+                                        <img width="416" height="283" alt="" src="{%if category_obj%}{{category_obj.image.url}}{%endif%}" class="jumbo-image alignright">
                                     </div>
                                     <div class="jumbotron-caption">
-                                        <h3 class="jumbo-title">Virtual Reality Headsets</h3>
-                                        <p class="jumbo-subtitle">Nullam dignissim elit ut urna rutrum, a fermentum mi auctor. Mauris efficitur magna orci, et dignissim lacus scelerisque sit amet. Proin malesuada tincidunt nisl ac commodo. Vivamus eleifend porttitor ex sit amet suscipit. Vestibulum at ullamcorper lacus, vel facilisis arcu. Aliquam erat volutpat.
+                                        <h3 class="jumbo-title">{%if category_obj%}{{category_obj.name}}{%endif%}</h3>
+                                        <p class="jumbo-subtitle">
                                             <br>
-                                            <br>Maecenas in sodales nisl. Pellentesque ac nibh mi. Ut lobortis odio nulla, congue rhoncus risus facilisis eget. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
-                                            <a href="#">read more <i class="tm tm-long-arrow-right"></i></a>
+                                            <br>
+                                            {%if category_obj%}{{category_obj.description}}{%endif%}
+                                            <br>
+                                            <br>
                                         </p>
                                     </div>
                                     <!-- .jumbotron-caption -->
@@ -49,7 +51,7 @@
                                 </div>
                                 <!-- .handheld-sidebar-toggle -->
                                 <h1 class="woocommerce-products-header__title page-title">Shop</h1>
-                                <ul role="tablist" class="shop-view-switcher nav nav-tabs">
+                                <!-- <ul role="tablist" class="shop-view-switcher nav nav-tabs">
                                     
                                     <li class="nav-item">
                                         <a href="#grid-extended" title="Grid Extended View" data-toggle="tab" class="nav-link active">
@@ -59,37 +61,17 @@
                                     
                                     
                                     
-                                </ul>
+                                </ul> -->
                                 <!-- .shop-view-switcher -->
-                                <form class="form-techmarket-wc-ppp" method="POST">
-                                    <select class="techmarket-wc-wppp-select c-select" onchange="this.form.submit()" name="ppp">
-                                        <option value="20">Show 20</option>
-                                        <option value="40">Show 40</option>
-                                        <option value="-1">Show All</option>
-                                    </select>
-                                    <input type="hidden" value="5" name="shop_columns">
-                                    <input type="hidden" value="15" name="shop_per_page">
-                                    <input type="hidden" value="right-sidebar" name="shop_layout">
-                                </form>
-                                <!-- .form-techmarket-wc-ppp -->
-                                <form method="get" class="woocommerce-ordering">
-                                    <select class="orderby" name="orderby">
-                                        <option value="popularity">Sort by popularity</option>
-                                        <option value="rating">Sort by average rating</option>
-                                        <option selected="selected" value="date">Sort by newness</option>
-                                        <option value="price">Sort by price: low to high</option>
-                                        <option value="price-desc">Sort by price: high to low</option>
-                                    </select>
-                                    <input type="hidden" value="5" name="shop_columns">
-                                    <input type="hidden" value="15" name="shop_per_page">
-                                    <input type="hidden" value="right-sidebar" name="shop_layout">
-                                </form>
+                                
+                              
+                                
                                 <!-- .woocommerce-ordering -->
-                                <nav class="techmarket-advanced-pagination">
+                                <!-- <nav class="techmarket-advanced-pagination">
                                     <form class="form-adv-pagination" method="post">
                                         <input type="number" value="1" class="form-control" step="1" max="5" min="1" size="2" id="goto-page">
                                     </form> of 5<a href="#" class="next page-numbers">→</a>
-                                </nav>
+                                </nav> -->
                                 <!-- .techmarket-advanced-pagination -->
                             </div>
                             <!-- .shop-control-bar -->
@@ -130,654 +112,12 @@
                                                 <span class="sku_wrapper">SKU:
                                                     <span class="sku">5487FB8/13</span>
                                                 </span>
-                                                <div class="woocommerce-product-details__short-description">
-                                                    <ul>
-                                                        <li>Multimedia Speakers</li>
-                                                        <li>120 watts peak</li>
-                                                        <li>Front-facing subwoofer</li>
-                                                        <li>Refresh Rate: 120Hz (Effective)</li>
-                                                        <li>Backlight: LED</li>
-                                                        <li>Smart Functionality: Yes, webOS 3.0</li>
-                                                        <li>Dimensions (W x H x D): TV without stand: 43.5″ x 25.4″ x 3.0″, TV with stand: 43.5″ x 27.6″ x 8.5″</li>
-                                                        <li>Inputs: 3 HMDI, 2 USB, 1 RF, 1 Component, 1 Composite, 1 Optical, 1 RS232C, 1 Ethernet</li>
-                                                    </ul>
-                                                </div>
+                                                
                                                 <!-- .woocommerce-product-details__short-description -->
-                                                <a class="button product_type_simple add_to_cart_button" href="cart.html">Add to cart</a>
-                                                <a class="add-to-compare-link" href="compare.html">Add to compare</a>
+                                                <a class="button product_type_simple add_to_cart_button" href="#" onclick="addToCart('{{i.id}}')">Add to cart</a>
+                                                
                                             </div>
                                             {%endfor%}
-                                            <!-- .product -->
-                                            <div class="product ">
-                                                <div class="yith-wcwl-add-to-wishlist">
-                                                    <a href="wishlist.html" rel="nofollow" class="add_to_wishlist"> Add to Wishlist</a>
-                                                </div>
-                                                <!-- .yith-wcwl-add-to-wishlist -->
-                                                <a class="woocommerce-LoopProduct-link woocommerce-loop-product__link" href="single-product-fullwidth.html">
-                                                    <img width="224" height="197" alt="" class="attachment-shop_catalog size-shop_catalog wp-post-image" src="assets/images/products/2.jpg">
-                                                    <span class="price">
-                                                        <span class="woocommerce-Price-amount amount">
-                                                            <span class="woocommerce-Price-currencySymbol">$</span>800.00</span>
-                                                    </span>
-                                                    <h2 class="woocommerce-loop-product__title">Xtreme ultimate splashproof portable speaker</h2>
-                                                </a>
-                                                <!-- .woocommerce-LoopProduct-link -->
-                                                <div class="techmarket-product-rating">
-                                                    <div title="Rated 5.00 out of 5" class="star-rating">
-                                                        <span style="width:100%">
-                                                            <strong class="rating">5.00</strong> out of 5</span>
-                                                    </div>
-                                                    <span class="review-count">(1)</span>
-                                                </div>
-                                                <!-- .techmarket-product-rating -->
-                                                <span class="sku_wrapper">SKU:
-                                                    <span class="sku">5487FB8/13</span>
-                                                </span>
-                                                <div class="woocommerce-product-details__short-description">
-                                                    <ul>
-                                                        <li>Multimedia Speakers</li>
-                                                        <li>120 watts peak</li>
-                                                        <li>Front-facing subwoofer</li>
-                                                        <li>Refresh Rate: 120Hz (Effective)</li>
-                                                        <li>Backlight: LED</li>
-                                                        <li>Smart Functionality: Yes, webOS 3.0</li>
-                                                        <li>Dimensions (W x H x D): TV without stand: 43.5″ x 25.4″ x 3.0″, TV with stand: 43.5″ x 27.6″ x 8.5″</li>
-                                                        <li>Inputs: 3 HMDI, 2 USB, 1 RF, 1 Component, 1 Composite, 1 Optical, 1 RS232C, 1 Ethernet</li>
-                                                    </ul>
-                                                </div>
-                                                <!-- .woocommerce-product-details__short-description -->
-                                                <a class="button product_type_simple add_to_cart_button" href="cart.html">Add to cart</a>
-                                                <a class="add-to-compare-link" href="compare.html">Add to compare</a>
-                                            </div>
-                                            <!-- .product -->
-                                            <div class="product ">
-                                                <div class="yith-wcwl-add-to-wishlist">
-                                                    <a href="wishlist.html" rel="nofollow" class="add_to_wishlist"> Add to Wishlist</a>
-                                                </div>
-                                                <!-- .yith-wcwl-add-to-wishlist -->
-                                                <a class="woocommerce-LoopProduct-link woocommerce-loop-product__link" href="single-product-fullwidth.html">
-                                                    <img width="224" height="197" alt="" class="attachment-shop_catalog size-shop_catalog wp-post-image" src="assets/images/products/3.jpg">
-                                                    <span class="price">
-                                                        <span class="woocommerce-Price-amount amount">
-                                                            <span class="woocommerce-Price-currencySymbol">$</span>800.00</span>
-                                                    </span>
-                                                    <h2 class="woocommerce-loop-product__title">ZenBook 3 Ultrabook 8GB 512SSD W10</h2>
-                                                </a>
-                                                <!-- .woocommerce-LoopProduct-link -->
-                                                <div class="techmarket-product-rating">
-                                                    <div title="Rated 5.00 out of 5" class="star-rating">
-                                                        <span style="width:100%">
-                                                            <strong class="rating">5.00</strong> out of 5</span>
-                                                    </div>
-                                                    <span class="review-count">(1)</span>
-                                                </div>
-                                                <!-- .techmarket-product-rating -->
-                                                <span class="sku_wrapper">SKU:
-                                                    <span class="sku">5487FB8/13</span>
-                                                </span>
-                                                <div class="woocommerce-product-details__short-description">
-                                                    <ul>
-                                                        <li>Multimedia Speakers</li>
-                                                        <li>120 watts peak</li>
-                                                        <li>Front-facing subwoofer</li>
-                                                        <li>Refresh Rate: 120Hz (Effective)</li>
-                                                        <li>Backlight: LED</li>
-                                                        <li>Smart Functionality: Yes, webOS 3.0</li>
-                                                        <li>Dimensions (W x H x D): TV without stand: 43.5″ x 25.4″ x 3.0″, TV with stand: 43.5″ x 27.6″ x 8.5″</li>
-                                                        <li>Inputs: 3 HMDI, 2 USB, 1 RF, 1 Component, 1 Composite, 1 Optical, 1 RS232C, 1 Ethernet</li>
-                                                    </ul>
-                                                </div>
-                                                <!-- .woocommerce-product-details__short-description -->
-                                                <a class="button product_type_simple add_to_cart_button" href="cart.html">Add to cart</a>
-                                                <a class="add-to-compare-link" href="compare.html">Add to compare</a>
-                                            </div>
-                                            <!-- .product -->
-                                            <div class="product last">
-                                                <div class="yith-wcwl-add-to-wishlist">
-                                                    <a href="wishlist.html" rel="nofollow" class="add_to_wishlist"> Add to Wishlist</a>
-                                                </div>
-                                                <!-- .yith-wcwl-add-to-wishlist -->
-                                                <a class="woocommerce-LoopProduct-link woocommerce-loop-product__link" href="single-product-fullwidth.html">
-                                                    <img width="224" height="197" alt="" class="attachment-shop_catalog size-shop_catalog wp-post-image" src="assets/images/products/4.jpg">
-                                                    <span class="price">
-                                                        <span class="woocommerce-Price-amount amount">
-                                                            <span class="woocommerce-Price-currencySymbol">$</span>800.00</span>
-                                                    </span>
-                                                    <h2 class="woocommerce-loop-product__title">Xtreme ultimate splashproof portable speaker</h2>
-                                                </a>
-                                                <!-- .woocommerce-LoopProduct-link -->
-                                                <div class="techmarket-product-rating">
-                                                    <div title="Rated 5.00 out of 5" class="star-rating">
-                                                        <span style="width:100%">
-                                                            <strong class="rating">5.00</strong> out of 5</span>
-                                                    </div>
-                                                    <span class="review-count">(1)</span>
-                                                </div>
-                                                <!-- .techmarket-product-rating -->
-                                                <span class="sku_wrapper">SKU:
-                                                    <span class="sku">5487FB8/13</span>
-                                                </span>
-                                                <div class="woocommerce-product-details__short-description">
-                                                    <ul>
-                                                        <li>Multimedia Speakers</li>
-                                                        <li>120 watts peak</li>
-                                                        <li>Front-facing subwoofer</li>
-                                                        <li>Refresh Rate: 120Hz (Effective)</li>
-                                                        <li>Backlight: LED</li>
-                                                        <li>Smart Functionality: Yes, webOS 3.0</li>
-                                                        <li>Dimensions (W x H x D): TV without stand: 43.5″ x 25.4″ x 3.0″, TV with stand: 43.5″ x 27.6″ x 8.5″</li>
-                                                        <li>Inputs: 3 HMDI, 2 USB, 1 RF, 1 Component, 1 Composite, 1 Optical, 1 RS232C, 1 Ethernet</li>
-                                                    </ul>
-                                                </div>
-                                                <!-- .woocommerce-product-details__short-description -->
-                                                <a class="button product_type_simple add_to_cart_button" href="cart.html">Add to cart</a>
-                                                <a class="add-to-compare-link" href="compare.html">Add to compare</a>
-                                            </div>
-                                            <!-- .product -->
-                                            <div class="product first">
-                                                <div class="yith-wcwl-add-to-wishlist">
-                                                    <a href="wishlist.html" rel="nofollow" class="add_to_wishlist"> Add to Wishlist</a>
-                                                </div>
-                                                <!-- .yith-wcwl-add-to-wishlist -->
-                                                <a class="woocommerce-LoopProduct-link woocommerce-loop-product__link" href="single-product-fullwidth.html">
-                                                    <img width="224" height="197" alt="" class="attachment-shop_catalog size-shop_catalog wp-post-image" src="assets/images/products/5.jpg">
-                                                    <span class="price">
-                                                        <span class="woocommerce-Price-amount amount">
-                                                            <span class="woocommerce-Price-currencySymbol">$</span>800.00</span>
-                                                    </span>
-                                                    <h2 class="woocommerce-loop-product__title">Watch Stainless with Grey Suture Leather Strap</h2>
-                                                </a>
-                                                <!-- .woocommerce-LoopProduct-link -->
-                                                <div class="techmarket-product-rating">
-                                                    <div title="Rated 5.00 out of 5" class="star-rating">
-                                                        <span style="width:100%">
-                                                            <strong class="rating">5.00</strong> out of 5</span>
-                                                    </div>
-                                                    <span class="review-count">(1)</span>
-                                                </div>
-                                                <!-- .techmarket-product-rating -->
-                                                <span class="sku_wrapper">SKU:
-                                                    <span class="sku">5487FB8/13</span>
-                                                </span>
-                                                <div class="woocommerce-product-details__short-description">
-                                                    <ul>
-                                                        <li>Multimedia Speakers</li>
-                                                        <li>120 watts peak</li>
-                                                        <li>Front-facing subwoofer</li>
-                                                        <li>Refresh Rate: 120Hz (Effective)</li>
-                                                        <li>Backlight: LED</li>
-                                                        <li>Smart Functionality: Yes, webOS 3.0</li>
-                                                        <li>Dimensions (W x H x D): TV without stand: 43.5″ x 25.4″ x 3.0″, TV with stand: 43.5″ x 27.6″ x 8.5″</li>
-                                                        <li>Inputs: 3 HMDI, 2 USB, 1 RF, 1 Component, 1 Composite, 1 Optical, 1 RS232C, 1 Ethernet</li>
-                                                    </ul>
-                                                </div>
-                                                <!-- .woocommerce-product-details__short-description -->
-                                                <a class="button product_type_simple add_to_cart_button" href="cart.html">Add to cart</a>
-                                                <a class="add-to-compare-link" href="compare.html">Add to compare</a>
-                                            </div>
-                                            <!-- .product -->
-                                            <div class="product ">
-                                                <div class="yith-wcwl-add-to-wishlist">
-                                                    <a href="wishlist.html" rel="nofollow" class="add_to_wishlist"> Add to Wishlist</a>
-                                                </div>
-                                                <!-- .yith-wcwl-add-to-wishlist -->
-                                                <a class="woocommerce-LoopProduct-link woocommerce-loop-product__link" href="single-product-fullwidth.html">
-                                                    <img width="224" height="197" alt="" class="attachment-shop_catalog size-shop_catalog wp-post-image" src="assets/images/products/6.jpg">
-                                                    <span class="price">
-                                                        <span class="woocommerce-Price-amount amount">
-                                                            <span class="woocommerce-Price-currencySymbol">$</span>800.00</span>
-                                                    </span>
-                                                    <h2 class="woocommerce-loop-product__title">Bbd 23-Inch Screen LED-Lit Monitorss Buds</h2>
-                                                </a>
-                                                <!-- .woocommerce-LoopProduct-link -->
-                                                <div class="techmarket-product-rating">
-                                                    <div title="Rated 5.00 out of 5" class="star-rating">
-                                                        <span style="width:100%">
-                                                            <strong class="rating">5.00</strong> out of 5</span>
-                                                    </div>
-                                                    <span class="review-count">(1)</span>
-                                                </div>
-                                                <!-- .techmarket-product-rating -->
-                                                <span class="sku_wrapper">SKU:
-                                                    <span class="sku">5487FB8/13</span>
-                                                </span>
-                                                <div class="woocommerce-product-details__short-description">
-                                                    <ul>
-                                                        <li>Multimedia Speakers</li>
-                                                        <li>120 watts peak</li>
-                                                        <li>Front-facing subwoofer</li>
-                                                        <li>Refresh Rate: 120Hz (Effective)</li>
-                                                        <li>Backlight: LED</li>
-                                                        <li>Smart Functionality: Yes, webOS 3.0</li>
-                                                        <li>Dimensions (W x H x D): TV without stand: 43.5″ x 25.4″ x 3.0″, TV with stand: 43.5″ x 27.6″ x 8.5″</li>
-                                                        <li>Inputs: 3 HMDI, 2 USB, 1 RF, 1 Component, 1 Composite, 1 Optical, 1 RS232C, 1 Ethernet</li>
-                                                    </ul>
-                                                </div>
-                                                <!-- .woocommerce-product-details__short-description -->
-                                                <a class="button product_type_simple add_to_cart_button" href="cart.html">Add to cart</a>
-                                                <a class="add-to-compare-link" href="compare.html">Add to compare</a>
-                                            </div>
-                                            <!-- .product -->
-                                            <div class="product ">
-                                                <div class="yith-wcwl-add-to-wishlist">
-                                                    <a href="wishlist.html" rel="nofollow" class="add_to_wishlist"> Add to Wishlist</a>
-                                                </div>
-                                                <!-- .yith-wcwl-add-to-wishlist -->
-                                                <a class="woocommerce-LoopProduct-link woocommerce-loop-product__link" href="single-product-fullwidth.html">
-                                                    <img width="224" height="197" alt="" class="attachment-shop_catalog size-shop_catalog wp-post-image" src="assets/images/products/7.jpg">
-                                                    <span class="price">
-                                                        <span class="woocommerce-Price-amount amount">
-                                                            <span class="woocommerce-Price-currencySymbol">$</span>800.00</span>
-                                                    </span>
-                                                    <h2 class="woocommerce-loop-product__title">Watch Stainless with Grey Suture Leather Strap</h2>
-                                                </a>
-                                                <!-- .woocommerce-LoopProduct-link -->
-                                                <div class="techmarket-product-rating">
-                                                    <div title="Rated 5.00 out of 5" class="star-rating">
-                                                        <span style="width:100%">
-                                                            <strong class="rating">5.00</strong> out of 5</span>
-                                                    </div>
-                                                    <span class="review-count">(1)</span>
-                                                </div>
-                                                <!-- .techmarket-product-rating -->
-                                                <span class="sku_wrapper">SKU:
-                                                    <span class="sku">5487FB8/13</span>
-                                                </span>
-                                                <div class="woocommerce-product-details__short-description">
-                                                    <ul>
-                                                        <li>Multimedia Speakers</li>
-                                                        <li>120 watts peak</li>
-                                                        <li>Front-facing subwoofer</li>
-                                                        <li>Refresh Rate: 120Hz (Effective)</li>
-                                                        <li>Backlight: LED</li>
-                                                        <li>Smart Functionality: Yes, webOS 3.0</li>
-                                                        <li>Dimensions (W x H x D): TV without stand: 43.5″ x 25.4″ x 3.0″, TV with stand: 43.5″ x 27.6″ x 8.5″</li>
-                                                        <li>Inputs: 3 HMDI, 2 USB, 1 RF, 1 Component, 1 Composite, 1 Optical, 1 RS232C, 1 Ethernet</li>
-                                                    </ul>
-                                                </div>
-                                                <!-- .woocommerce-product-details__short-description -->
-                                                <a class="button product_type_simple add_to_cart_button" href="cart.html">Add to cart</a>
-                                                <a class="add-to-compare-link" href="compare.html">Add to compare</a>
-                                            </div>
-                                            <!-- .product -->
-                                            <div class="product last">
-                                                <div class="yith-wcwl-add-to-wishlist">
-                                                    <a href="wishlist.html" rel="nofollow" class="add_to_wishlist"> Add to Wishlist</a>
-                                                </div>
-                                                <!-- .yith-wcwl-add-to-wishlist -->
-                                                <a class="woocommerce-LoopProduct-link woocommerce-loop-product__link" href="single-product-fullwidth.html">
-                                                    <img width="224" height="197" alt="" class="attachment-shop_catalog size-shop_catalog wp-post-image" src="assets/images/products/8.jpg">
-                                                    <span class="price">
-                                                        <span class="woocommerce-Price-amount amount">
-                                                            <span class="woocommerce-Price-currencySymbol">$</span>800.00</span>
-                                                    </span>
-                                                    <h2 class="woocommerce-loop-product__title">Xtreme ultimate splashproof portable speaker</h2>
-                                                </a>
-                                                <!-- .woocommerce-LoopProduct-link -->
-                                                <div class="techmarket-product-rating">
-                                                    <div title="Rated 5.00 out of 5" class="star-rating">
-                                                        <span style="width:100%">
-                                                            <strong class="rating">5.00</strong> out of 5</span>
-                                                    </div>
-                                                    <span class="review-count">(1)</span>
-                                                </div>
-                                                <!-- .techmarket-product-rating -->
-                                                <span class="sku_wrapper">SKU:
-                                                    <span class="sku">5487FB8/13</span>
-                                                </span>
-                                                <div class="woocommerce-product-details__short-description">
-                                                    <ul>
-                                                        <li>Multimedia Speakers</li>
-                                                        <li>120 watts peak</li>
-                                                        <li>Front-facing subwoofer</li>
-                                                        <li>Refresh Rate: 120Hz (Effective)</li>
-                                                        <li>Backlight: LED</li>
-                                                        <li>Smart Functionality: Yes, webOS 3.0</li>
-                                                        <li>Dimensions (W x H x D): TV without stand: 43.5″ x 25.4″ x 3.0″, TV with stand: 43.5″ x 27.6″ x 8.5″</li>
-                                                        <li>Inputs: 3 HMDI, 2 USB, 1 RF, 1 Component, 1 Composite, 1 Optical, 1 RS232C, 1 Ethernet</li>
-                                                    </ul>
-                                                </div>
-                                                <!-- .woocommerce-product-details__short-description -->
-                                                <a class="button product_type_simple add_to_cart_button" href="cart.html">Add to cart</a>
-                                                <a class="add-to-compare-link" href="compare.html">Add to compare</a>
-                                            </div>
-                                            <!-- .product -->
-                                            <div class="product first">
-                                                <div class="yith-wcwl-add-to-wishlist">
-                                                    <a href="wishlist.html" rel="nofollow" class="add_to_wishlist"> Add to Wishlist</a>
-                                                </div>
-                                                <!-- .yith-wcwl-add-to-wishlist -->
-                                                <a class="woocommerce-LoopProduct-link woocommerce-loop-product__link" href="single-product-fullwidth.html">
-                                                    <img width="224" height="197" alt="" class="attachment-shop_catalog size-shop_catalog wp-post-image" src="assets/images/products/9.jpg">
-                                                    <span class="price">
-                                                        <span class="woocommerce-Price-amount amount">
-                                                            <span class="woocommerce-Price-currencySymbol">$</span>800.00</span>
-                                                    </span>
-                                                    <h2 class="woocommerce-loop-product__title">XONE Wireless Controller</h2>
-                                                </a>
-                                                <!-- .woocommerce-LoopProduct-link -->
-                                                <div class="techmarket-product-rating">
-                                                    <div title="Rated 5.00 out of 5" class="star-rating">
-                                                        <span style="width:100%">
-                                                            <strong class="rating">5.00</strong> out of 5</span>
-                                                    </div>
-                                                    <span class="review-count">(1)</span>
-                                                </div>
-                                                <!-- .techmarket-product-rating -->
-                                                <span class="sku_wrapper">SKU:
-                                                    <span class="sku">5487FB8/13</span>
-                                                </span>
-                                                <div class="woocommerce-product-details__short-description">
-                                                    <ul>
-                                                        <li>Multimedia Speakers</li>
-                                                        <li>120 watts peak</li>
-                                                        <li>Front-facing subwoofer</li>
-                                                        <li>Refresh Rate: 120Hz (Effective)</li>
-                                                        <li>Backlight: LED</li>
-                                                        <li>Smart Functionality: Yes, webOS 3.0</li>
-                                                        <li>Dimensions (W x H x D): TV without stand: 43.5″ x 25.4″ x 3.0″, TV with stand: 43.5″ x 27.6″ x 8.5″</li>
-                                                        <li>Inputs: 3 HMDI, 2 USB, 1 RF, 1 Component, 1 Composite, 1 Optical, 1 RS232C, 1 Ethernet</li>
-                                                    </ul>
-                                                </div>
-                                                <!-- .woocommerce-product-details__short-description -->
-                                                <a class="button product_type_simple add_to_cart_button" href="cart.html">Add to cart</a>
-                                                <a class="add-to-compare-link" href="compare.html">Add to compare</a>
-                                            </div>
-                                            <!-- .product -->
-                                            <div class="product ">
-                                                <div class="yith-wcwl-add-to-wishlist">
-                                                    <a href="wishlist.html" rel="nofollow" class="add_to_wishlist"> Add to Wishlist</a>
-                                                </div>
-                                                <!-- .yith-wcwl-add-to-wishlist -->
-                                                <a class="woocommerce-LoopProduct-link woocommerce-loop-product__link" href="single-product-fullwidth.html">
-                                                    <img width="224" height="197" alt="" class="attachment-shop_catalog size-shop_catalog wp-post-image" src="assets/images/products/10.jpg">
-                                                    <span class="price">
-                                                        <span class="woocommerce-Price-amount amount">
-                                                            <span class="woocommerce-Price-currencySymbol">$</span>800.00</span>
-                                                    </span>
-                                                    <h2 class="woocommerce-loop-product__title">On-ear Wireless NXTG</h2>
-                                                </a>
-                                                <!-- .woocommerce-LoopProduct-link -->
-                                                <div class="techmarket-product-rating">
-                                                    <div title="Rated 5.00 out of 5" class="star-rating">
-                                                        <span style="width:100%">
-                                                            <strong class="rating">5.00</strong> out of 5</span>
-                                                    </div>
-                                                    <span class="review-count">(1)</span>
-                                                </div>
-                                                <!-- .techmarket-product-rating -->
-                                                <span class="sku_wrapper">SKU:
-                                                    <span class="sku">5487FB8/13</span>
-                                                </span>
-                                                <div class="woocommerce-product-details__short-description">
-                                                    <ul>
-                                                        <li>Multimedia Speakers</li>
-                                                        <li>120 watts peak</li>
-                                                        <li>Front-facing subwoofer</li>
-                                                        <li>Refresh Rate: 120Hz (Effective)</li>
-                                                        <li>Backlight: LED</li>
-                                                        <li>Smart Functionality: Yes, webOS 3.0</li>
-                                                        <li>Dimensions (W x H x D): TV without stand: 43.5″ x 25.4″ x 3.0″, TV with stand: 43.5″ x 27.6″ x 8.5″</li>
-                                                        <li>Inputs: 3 HMDI, 2 USB, 1 RF, 1 Component, 1 Composite, 1 Optical, 1 RS232C, 1 Ethernet</li>
-                                                    </ul>
-                                                </div>
-                                                <!-- .woocommerce-product-details__short-description -->
-                                                <a class="button product_type_simple add_to_cart_button" href="cart.html">Add to cart</a>
-                                                <a class="add-to-compare-link" href="compare.html">Add to compare</a>
-                                            </div>
-                                            <!-- .product -->
-                                            <div class="product ">
-                                                <div class="yith-wcwl-add-to-wishlist">
-                                                    <a href="wishlist.html" rel="nofollow" class="add_to_wishlist"> Add to Wishlist</a>
-                                                </div>
-                                                <!-- .yith-wcwl-add-to-wishlist -->
-                                                <a class="woocommerce-LoopProduct-link woocommerce-loop-product__link" href="single-product-fullwidth.html">
-                                                    <img width="224" height="197" alt="" class="attachment-shop_catalog size-shop_catalog wp-post-image" src="assets/images/products/11.jpg">
-                                                    <span class="price">
-                                                        <span class="woocommerce-Price-amount amount">
-                                                            <span class="woocommerce-Price-currencySymbol">$</span>800.00</span>
-                                                    </span>
-                                                    <h2 class="woocommerce-loop-product__title">Video & Air Quality Monitor</h2>
-                                                </a>
-                                                <!-- .woocommerce-LoopProduct-link -->
-                                                <div class="techmarket-product-rating">
-                                                    <div title="Rated 5.00 out of 5" class="star-rating">
-                                                        <span style="width:100%">
-                                                            <strong class="rating">5.00</strong> out of 5</span>
-                                                    </div>
-                                                    <span class="review-count">(1)</span>
-                                                </div>
-                                                <!-- .techmarket-product-rating -->
-                                                <span class="sku_wrapper">SKU:
-                                                    <span class="sku">5487FB8/13</span>
-                                                </span>
-                                                <div class="woocommerce-product-details__short-description">
-                                                    <ul>
-                                                        <li>Multimedia Speakers</li>
-                                                        <li>120 watts peak</li>
-                                                        <li>Front-facing subwoofer</li>
-                                                        <li>Refresh Rate: 120Hz (Effective)</li>
-                                                        <li>Backlight: LED</li>
-                                                        <li>Smart Functionality: Yes, webOS 3.0</li>
-                                                        <li>Dimensions (W x H x D): TV without stand: 43.5″ x 25.4″ x 3.0″, TV with stand: 43.5″ x 27.6″ x 8.5″</li>
-                                                        <li>Inputs: 3 HMDI, 2 USB, 1 RF, 1 Component, 1 Composite, 1 Optical, 1 RS232C, 1 Ethernet</li>
-                                                    </ul>
-                                                </div>
-                                                <!-- .woocommerce-product-details__short-description -->
-                                                <a class="button product_type_simple add_to_cart_button" href="cart.html">Add to cart</a>
-                                                <a class="add-to-compare-link" href="compare.html">Add to compare</a>
-                                            </div>
-                                            <!-- .product -->
-                                            <div class="product last">
-                                                <div class="yith-wcwl-add-to-wishlist">
-                                                    <a href="wishlist.html" rel="nofollow" class="add_to_wishlist"> Add to Wishlist</a>
-                                                </div>
-                                                <!-- .yith-wcwl-add-to-wishlist -->
-                                                <a class="woocommerce-LoopProduct-link woocommerce-loop-product__link" href="single-product-fullwidth.html">
-                                                    <img width="224" height="197" alt="" class="attachment-shop_catalog size-shop_catalog wp-post-image" src="assets/images/products/12.jpg">
-                                                    <span class="price">
-                                                        <span class="woocommerce-Price-amount amount">
-                                                            <span class="woocommerce-Price-currencySymbol">$</span>800.00</span>
-                                                    </span>
-                                                    <h2 class="woocommerce-loop-product__title">Xtreme ultimate splashproof portable speaker</h2>
-                                                </a>
-                                                <!-- .woocommerce-LoopProduct-link -->
-                                                <div class="techmarket-product-rating">
-                                                    <div title="Rated 5.00 out of 5" class="star-rating">
-                                                        <span style="width:100%">
-                                                            <strong class="rating">5.00</strong> out of 5</span>
-                                                    </div>
-                                                    <span class="review-count">(1)</span>
-                                                </div>
-                                                <!-- .techmarket-product-rating -->
-                                                <span class="sku_wrapper">SKU:
-                                                    <span class="sku">5487FB8/13</span>
-                                                </span>
-                                                <div class="woocommerce-product-details__short-description">
-                                                    <ul>
-                                                        <li>Multimedia Speakers</li>
-                                                        <li>120 watts peak</li>
-                                                        <li>Front-facing subwoofer</li>
-                                                        <li>Refresh Rate: 120Hz (Effective)</li>
-                                                        <li>Backlight: LED</li>
-                                                        <li>Smart Functionality: Yes, webOS 3.0</li>
-                                                        <li>Dimensions (W x H x D): TV without stand: 43.5″ x 25.4″ x 3.0″, TV with stand: 43.5″ x 27.6″ x 8.5″</li>
-                                                        <li>Inputs: 3 HMDI, 2 USB, 1 RF, 1 Component, 1 Composite, 1 Optical, 1 RS232C, 1 Ethernet</li>
-                                                    </ul>
-                                                </div>
-                                                <!-- .woocommerce-product-details__short-description -->
-                                                <a class="button product_type_simple add_to_cart_button" href="cart.html">Add to cart</a>
-                                                <a class="add-to-compare-link" href="compare.html">Add to compare</a>
-                                            </div>
-                                            <!-- .product -->
-                                            <div class="product first">
-                                                <div class="yith-wcwl-add-to-wishlist">
-                                                    <a href="wishlist.html" rel="nofollow" class="add_to_wishlist"> Add to Wishlist</a>
-                                                </div>
-                                                <!-- .yith-wcwl-add-to-wishlist -->
-                                                <a class="woocommerce-LoopProduct-link woocommerce-loop-product__link" href="single-product-fullwidth.html">
-                                                    <img width="224" height="197" alt="" class="attachment-shop_catalog size-shop_catalog wp-post-image" src="assets/images/products/13.jpg">
-                                                    <span class="price">
-                                                        <span class="woocommerce-Price-amount amount">
-                                                            <span class="woocommerce-Price-currencySymbol">$</span>800.00</span>
-                                                    </span>
-                                                    <h2 class="woocommerce-loop-product__title">Bluetooth on-ear PureBass Headphones</h2>
-                                                </a>
-                                                <!-- .woocommerce-LoopProduct-link -->
-                                                <div class="techmarket-product-rating">
-                                                    <div title="Rated 5.00 out of 5" class="star-rating">
-                                                        <span style="width:100%">
-                                                            <strong class="rating">5.00</strong> out of 5</span>
-                                                    </div>
-                                                    <span class="review-count">(1)</span>
-                                                </div>
-                                                <!-- .techmarket-product-rating -->
-                                                <span class="sku_wrapper">SKU:
-                                                    <span class="sku">5487FB8/13</span>
-                                                </span>
-                                                <div class="woocommerce-product-details__short-description">
-                                                    <ul>
-                                                        <li>Multimedia Speakers</li>
-                                                        <li>120 watts peak</li>
-                                                        <li>Front-facing subwoofer</li>
-                                                        <li>Refresh Rate: 120Hz (Effective)</li>
-                                                        <li>Backlight: LED</li>
-                                                        <li>Smart Functionality: Yes, webOS 3.0</li>
-                                                        <li>Dimensions (W x H x D): TV without stand: 43.5″ x 25.4″ x 3.0″, TV with stand: 43.5″ x 27.6″ x 8.5″</li>
-                                                        <li>Inputs: 3 HMDI, 2 USB, 1 RF, 1 Component, 1 Composite, 1 Optical, 1 RS232C, 1 Ethernet</li>
-                                                    </ul>
-                                                </div>
-                                                <!-- .woocommerce-product-details__short-description -->
-                                                <a class="button product_type_simple add_to_cart_button" href="cart.html">Add to cart</a>
-                                                <a class="add-to-compare-link" href="compare.html">Add to compare</a>
-                                            </div>
-                                            <!-- .product -->
-                                            <div class="product ">
-                                                <div class="yith-wcwl-add-to-wishlist">
-                                                    <a href="wishlist.html" rel="nofollow" class="add_to_wishlist"> Add to Wishlist</a>
-                                                </div>
-                                                <!-- .yith-wcwl-add-to-wishlist -->
-                                                <a class="woocommerce-LoopProduct-link woocommerce-loop-product__link" href="single-product-fullwidth.html">
-                                                    <img width="224" height="197" alt="" class="attachment-shop_catalog size-shop_catalog wp-post-image" src="assets/images/products/14.jpg">
-                                                    <span class="price">
-                                                        <span class="woocommerce-Price-amount amount">
-                                                            <span class="woocommerce-Price-currencySymbol">$</span>800.00</span>
-                                                    </span>
-                                                    <h2 class="woocommerce-loop-product__title">Bbd 23-Inch Screen LED-Lit Monitorss Buds</h2>
-                                                </a>
-                                                <!-- .woocommerce-LoopProduct-link -->
-                                                <div class="techmarket-product-rating">
-                                                    <div title="Rated 5.00 out of 5" class="star-rating">
-                                                        <span style="width:100%">
-                                                            <strong class="rating">5.00</strong> out of 5</span>
-                                                    </div>
-                                                    <span class="review-count">(1)</span>
-                                                </div>
-                                                <!-- .techmarket-product-rating -->
-                                                <span class="sku_wrapper">SKU:
-                                                    <span class="sku">5487FB8/13</span>
-                                                </span>
-                                                <div class="woocommerce-product-details__short-description">
-                                                    <ul>
-                                                        <li>Multimedia Speakers</li>
-                                                        <li>120 watts peak</li>
-                                                        <li>Front-facing subwoofer</li>
-                                                        <li>Refresh Rate: 120Hz (Effective)</li>
-                                                        <li>Backlight: LED</li>
-                                                        <li>Smart Functionality: Yes, webOS 3.0</li>
-                                                        <li>Dimensions (W x H x D): TV without stand: 43.5″ x 25.4″ x 3.0″, TV with stand: 43.5″ x 27.6″ x 8.5″</li>
-                                                        <li>Inputs: 3 HMDI, 2 USB, 1 RF, 1 Component, 1 Composite, 1 Optical, 1 RS232C, 1 Ethernet</li>
-                                                    </ul>
-                                                </div>
-                                                <!-- .woocommerce-product-details__short-description -->
-                                                <a class="button product_type_simple add_to_cart_button" href="cart.html">Add to cart</a>
-                                                <a class="add-to-compare-link" href="compare.html">Add to compare</a>
-                                            </div>
-                                            <!-- .product -->
-                                            <div class="product ">
-                                                <div class="yith-wcwl-add-to-wishlist">
-                                                    <a href="wishlist.html" rel="nofollow" class="add_to_wishlist"> Add to Wishlist</a>
-                                                </div>
-                                                <!-- .yith-wcwl-add-to-wishlist -->
-                                                <a class="woocommerce-LoopProduct-link woocommerce-loop-product__link" href="single-product-fullwidth.html">
-                                                    <img width="224" height="197" alt="" class="attachment-shop_catalog size-shop_catalog wp-post-image" src="assets/images/products/15.jpg">
-                                                    <span class="price">
-                                                        <span class="woocommerce-Price-amount amount">
-                                                            <span class="woocommerce-Price-currencySymbol">$</span>800.00</span>
-                                                    </span>
-                                                    <h2 class="woocommerce-loop-product__title">On-ear Wireless NXTG</h2>
-                                                </a>
-                                                <!-- .woocommerce-LoopProduct-link -->
-                                                <div class="techmarket-product-rating">
-                                                    <div title="Rated 5.00 out of 5" class="star-rating">
-                                                        <span style="width:100%">
-                                                            <strong class="rating">5.00</strong> out of 5</span>
-                                                    </div>
-                                                    <span class="review-count">(1)</span>
-                                                </div>
-                                                <!-- .techmarket-product-rating -->
-                                                <span class="sku_wrapper">SKU:
-                                                    <span class="sku">5487FB8/13</span>
-                                                </span>
-                                                <div class="woocommerce-product-details__short-description">
-                                                    <ul>
-                                                        <li>Multimedia Speakers</li>
-                                                        <li>120 watts peak</li>
-                                                        <li>Front-facing subwoofer</li>
-                                                        <li>Refresh Rate: 120Hz (Effective)</li>
-                                                        <li>Backlight: LED</li>
-                                                        <li>Smart Functionality: Yes, webOS 3.0</li>
-                                                        <li>Dimensions (W x H x D): TV without stand: 43.5″ x 25.4″ x 3.0″, TV with stand: 43.5″ x 27.6″ x 8.5″</li>
-                                                        <li>Inputs: 3 HMDI, 2 USB, 1 RF, 1 Component, 1 Composite, 1 Optical, 1 RS232C, 1 Ethernet</li>
-                                                    </ul>
-                                                </div>
-                                                <!-- .woocommerce-product-details__short-description -->
-                                                <a class="button product_type_simple add_to_cart_button" href="cart.html">Add to cart</a>
-                                                <a class="add-to-compare-link" href="compare.html">Add to compare</a>
-                                            </div>
-                                            <!-- .product -->
-                                            <div class="product last">
-                                                <div class="yith-wcwl-add-to-wishlist">
-                                                    <a href="wishlist.html" rel="nofollow" class="add_to_wishlist"> Add to Wishlist</a>
-                                                </div>
-                                                <!-- .yith-wcwl-add-to-wishlist -->
-                                                <a class="woocommerce-LoopProduct-link woocommerce-loop-product__link" href="single-product-fullwidth.html">
-                                                    <img width="224" height="197" alt="" class="attachment-shop_catalog size-shop_catalog wp-post-image" src="assets/images/products/16.jpg">
-                                                    <span class="price">
-                                                        <span class="woocommerce-Price-amount amount">
-                                                            <span class="woocommerce-Price-currencySymbol">$</span>800.00</span>
-                                                    </span>
-                                                    <h2 class="woocommerce-loop-product__title">Gear Virtual Reality 3D with Bluetooth Glasses</h2>
-                                                </a>
-                                                <!-- .woocommerce-LoopProduct-link -->
-                                                <div class="techmarket-product-rating">
-                                                    <div title="Rated 5.00 out of 5" class="star-rating">
-                                                        <span style="width:100%">
-                                                            <strong class="rating">5.00</strong> out of 5</span>
-                                                    </div>
-                                                    <span class="review-count">(1)</span>
-                                                </div>
-                                                <!-- .techmarket-product-rating -->
-                                                <span class="sku_wrapper">SKU:
-                                                    <span class="sku">5487FB8/13</span>
-                                                </span>
-                                                <div class="woocommerce-product-details__short-description">
-                                                    <ul>
-                                                        <li>Multimedia Speakers</li>
-                                                        <li>120 watts peak</li>
-                                                        <li>Front-facing subwoofer</li>
-                                                        <li>Refresh Rate: 120Hz (Effective)</li>
-                                                        <li>Backlight: LED</li>
-                                                        <li>Smart Functionality: Yes, webOS 3.0</li>
-                                                        <li>Dimensions (W x H x D): TV without stand: 43.5″ x 25.4″ x 3.0″, TV with stand: 43.5″ x 27.6″ x 8.5″</li>
-                                                        <li>Inputs: 3 HMDI, 2 USB, 1 RF, 1 Component, 1 Composite, 1 Optical, 1 RS232C, 1 Ethernet</li>
-                                                    </ul>
-                                                </div>
-                                                <!-- .woocommerce-product-details__short-description -->
-                                                <a class="button product_type_simple add_to_cart_button" href="cart.html">Add to cart</a>
-                                                <a class="add-to-compare-link" href="compare.html">Add to compare</a>
-                                            </div>
-                                            <!-- .product -->
                                         </div>
                                         <!-- .products -->
                                     </div>
@@ -787,7 +127,7 @@
                             </div>
                             <!-- .tab-content -->
                             <div class="shop-control-bar-bottom">
-                                <form class="form-techmarket-wc-ppp" method="POST">
+                                <!-- <form class="form-techmarket-wc-ppp" method="POST">
                                     <select class="techmarket-wc-wppp-select c-select" onchange="this.form.submit()" name="ppp">
                                         <option value="20">Show 20</option>
                                         <option value="40">Show 40</option>
@@ -796,25 +136,47 @@
                                     <input type="hidden" value="5" name="shop_columns">
                                     <input type="hidden" value="15" name="shop_per_page">
                                     <input type="hidden" value="right-sidebar" name="shop_layout">
-                                </form>
+                                </form> -->
                                 <!-- .form-techmarket-wc-ppp -->
-                                <p class="woocommerce-result-count">
+                                <!-- <p class="woocommerce-result-count">
                                     Showing 1&ndash;15 of 73 results
-                                </p>
+                                </p> -->
                                 <!-- .woocommerce-result-count -->
+                                
+
                                 <nav class="woocommerce-pagination">
-                                    <ul class="page-numbers">
-                                        <li>
-                                            <span class="page-numbers current">1</span>
-                                        </li>
-                                        <li><a href="#" class="page-numbers">2</a></li>
-                                        <li><a href="#" class="page-numbers">3</a></li>
-                                        <li><a href="#" class="page-numbers">4</a></li>
-                                        <li><a href="#" class="page-numbers">5</a></li>
-                                        <li><a href="#" class="next page-numbers">→</a></li>
-                                    </ul>
-                                    <!-- .page-numbers -->
+                                    <ul class="pagination ">
+                                        {% set min_num = 2 %}
+                                        {% if products.has_previous() %}
+                                        <li class="page-item"><a class="page-link"
+                                            href="{{pagination_url}}&page={{products.previous_page_number()}}">Previous</a></li>
+                                        {% else %}
+                                        <li class="page-item disabled"><span class="page-link">Previous</span></li>
+                                        {% endif %}
+                                        {% for num in products.paginator.page_range %}
+                                        {% if num >= products.number - min_num and num <= products.number + min_num %} {% if
+                                          products.number==num %} <li class="page-item active"><span class="page-link">{{ num }}</span>
+                                          </li>
+                                          {% else %}
+                                          <li class="page-item"><a class="page-link" href="{{pagination_url}}&page={{num}}">{{num}}</a></li>
+                                          {% endif %}
+                                          {% elif num == products.paginator.page_range|first or num ==
+                                          products.paginator.page_range|last %}
+                                          <li class="page-item disabled"><span class="page-link">...</span></li>
+                                          {% endif %}
+                                          {% endfor %}
+                                          {% if products.has_next() %}
+                                          <li class="page-item"><a class="page-link"
+                                              href="{{pagination_url}}&page={{products.next_page_number()}}">Next</a></li>
+                                          {% else %}
+                                          <li class="page-item disabled"><span class="page-link">Next</span></li>
+                                          {% endif %}
+                                      </ul>
                                 </nav>
+                                
+                               
+                                
+                                
                                 <!-- .woocommerce-pagination -->
                             </div>
                             <!-- .shop-control-bar-bottom -->
@@ -823,111 +185,7 @@
                     </div>
                     <!-- #primary -->
                     <div id="secondary" class="widget-area shop-sidebar" role="complementary">
-                        <div class="widget woocommerce widget_product_categories techmarket_widget_product_categories" id="techmarket_product_categories_widget-2">
-                            <ul class="product-categories ">
-                                <li class="product_cat">
-                                    <span>Browse Categories</span>
-                                    <ul>
-                                        <li class="cat-item">
-                                            <a href="product-category.html">
-                                                <span class="no-child"></span>Televisions</a>
-                                        </li>
-                                        <li class="cat-item">
-                                            <a href="product-category.html">
-                                                <span class="no-child"></span>Home Theater &amp; Audio</a>
-                                        </li>
-                                        <li class="cat-item">
-                                            <a href="product-category.html">
-                                                <span class="child-indicator">
-                                                    <i class="fa fa-angle-right"></i>
-                                                </span>Headphones</a>
-                                        </li>
-                                        <li class="cat-item">
-                                            <a href="product-category.html">
-                                                <span class="child-indicator">
-                                                    <i class="fa fa-angle-right"></i>
-                                                </span>Digital Cameras</a>
-                                        </li>
-                                        <li class="cat-item">
-                                            <a href="product-category.html">
-                                                <span class="child-indicator">
-                                                    <i class="fa fa-angle-right"></i>
-                                                </span>Cells &amp; Tablets</a>
-                                        </li>
-                                        <li class="cat-item">
-                                            <a href="product-category.html">
-                                                <span class="no-child"></span>Smartwatches</a>
-                                        </li>
-                                        <li class="cat-item">
-                                            <a href="product-category.html">
-                                                <span class="child-indicator">
-                                                    <i class="fa fa-angle-right"></i>
-                                                </span>Games &amp; Consoles</a>
-                                        </li>
-                                        <li class="cat-item">
-                                            <a href="product-category.html">
-                                                <span class="no-child"></span>Printer</a>
-                                        </li>
-                                        <li class="cat-item">
-                                            <a href="product-category.html">
-                                                <span class="no-child"></span>TV &amp; Video</a>
-                                        </li>
-                                        <li class="cat-item">
-                                            <a href="product-category.html">
-                                                <span class="child-indicator">
-                                                    <i class="fa fa-angle-right"></i>
-                                                </span>Home Entertainment</a>
-                                        </li>
-                                        <li class="cat-item">
-                                            <a href="product-category.html">
-                                                <span class="child-indicator">
-                                                    <i class="fa fa-angle-right"></i>
-                                                </span>Computers &amp; Laptops</a>
-                                        </li>
-                                        <li class="cat-item">
-                                            <a href="product-category.html">
-                                                <span class="no-child"></span>Notebooks</a>
-                                        </li>
-                                        <li class="cat-item">
-                                            <a href="product-category.html">
-                                                <span class="child-indicator">
-                                                    <i class="fa fa-angle-right"></i>
-                                                </span>Desktop PCs</a>
-                                        </li>
-                                        <li class="cat-item">
-                                            <a href="product-category.html">
-                                                <span class="no-child"></span>Mac Computers</a>
-                                        </li>
-                                        <li class="cat-item">
-                                            <a href="product-category.html">
-                                                <span class="child-indicator">
-                                                    <i class="fa fa-angle-right"></i>
-                                                </span>All in One PC</a>
-                                        </li>
-                                        <li class="cat-item">
-                                            <a href="product-category.html">
-                                                <span class="child-indicator">
-                                                    <i class="fa fa-angle-right"></i>
-                                                </span>Audio &amp; Music</a>
-                                        </li>
-                                        <li class="cat-item">
-                                            <a href="product-category.html">
-                                                <span class="no-child"></span>PC Components</a>
-                                        </li>
-                                        <li class="cat-item">
-                                            <a href="product-category.html">
-                                                <span class="child-indicator">
-                                                    <i class="fa fa-angle-right"></i>
-                                                </span>Desktop PCs</a>
-                                        </li>
-                                        <li class="cat-item">
-                                            <a href="product-category.html">
-                                                <span class="no-child"></span>Monitors</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </div>
+                        
                         <div id="techmarket_products_filter-3" class="widget widget_techmarket_products_filter">
                             <span class="gamma widget-title">Filters</span>
                             <div class="widget woocommerce widget_price_filter" id="woocommerce_price_filter-2">
@@ -939,36 +197,7 @@
                                     </div>
                                     <div id="slider-range" class="price_slider"></div>
                             </div>
-                            <div class="widget woocommerce widget_layered_nav maxlist-more" id="woocommerce_layered_nav-2">
-                                <span class="gamma widget-title">Brands</span>
-                                <ul>
-                                    <li class="wc-layered-nav-term ">
-                                        <a href="#">apple</a>
-                                        <span class="count">(2)</span>
-                                    </li>
-                                    <li class="wc-layered-nav-term "><a href="#">bosch</a>
-                                        <span class="count">(1)</span>
-                                    </li>
-                                    <li class="wc-layered-nav-term "><a href="#">cannon</a>
-                                        <span class="count">(1)</span>
-                                    </li>
-                                    <li class="wc-layered-nav-term "><a href="#">connect</a>
-                                        <span class="count">(1)</span>
-                                    </li>
-                                    <li class="wc-layered-nav-term "><a href="#">galaxy</a>
-                                        <span class="count">(3)</span>
-                                    </li>
-                                    <li class="wc-layered-nav-term "><a href="#">gopro</a>
-                                        <span class="count">(1)</span>
-                                    </li>
-                                    <li class="wc-layered-nav-term "><a href="#">kinova</a>
-                                        <span class="count">(1)</span>
-                                    </li>
-                                    <li class="wc-layered-nav-term "><a href="#">samsung</a>
-                                        <span class="count">(1)</span>
-                                    </li>
-                                </ul>
-                            </div>
+                            
                             <!-- .woocommerce widget_layered_nav -->
                             <div class="widget woocommerce widget_layered_nav maxlist-more" id="woocommerce_layered_nav-3">
                                 <span class="gamma widget-title">Color</span>
@@ -1212,183 +441,6 @@
             <!-- .section-landscape-products-carousel -->
             {%endif%}
             <!-- .section-landscape-products-carousel -->
-            <section class="brands-carousel">
-                <h2 class="sr-only">Brands Carousel</h2>
-                <div class="col-full" data-ride="tm-slick-carousel" data-wrap=".brands" data-slick="{&quot;slidesToShow&quot;:6,&quot;slidesToScroll&quot;:1,&quot;dots&quot;:false,&quot;arrows&quot;:true,&quot;responsive&quot;:[{&quot;breakpoint&quot;:400,&quot;settings&quot;:{&quot;slidesToShow&quot;:1,&quot;slidesToScroll&quot;:1}},{&quot;breakpoint&quot;:800,&quot;settings&quot;:{&quot;slidesToShow&quot;:3,&quot;slidesToScroll&quot;:3}},{&quot;breakpoint&quot;:992,&quot;settings&quot;:{&quot;slidesToShow&quot;:3,&quot;slidesToScroll&quot;:3}},{&quot;breakpoint&quot;:1200,&quot;settings&quot;:{&quot;slidesToShow&quot;:4,&quot;slidesToScroll&quot;:4}},{&quot;breakpoint&quot;:1400,&quot;settings&quot;:{&quot;slidesToShow&quot;:5,&quot;slidesToScroll&quot;:5}}]}">
-                    <div class="brands">
-                        <div class="item">
-                            <a href="shop.html">
-                                <figure>
-                                    <figcaption class="text-overlay">
-                                        <div class="info">
-                                            <h4>apple</h4>
-                                        </div>
-                                        <!-- /.info -->
-                                    </figcaption>
-                                    <img width="145" height="50" class="img-responsive desaturate" alt="apple" src="assets/images/brands/1.png">
-                                </figure>
-                            </a>
-                        </div>
-                        <!-- .item -->
-                        <div class="item">
-                            <a href="shop.html">
-                                <figure>
-                                    <figcaption class="text-overlay">
-                                        <div class="info">
-                                            <h4>bosch</h4>
-                                        </div>
-                                        <!-- /.info -->
-                                    </figcaption>
-                                    <img width="145" height="50" class="img-responsive desaturate" alt="bosch" src="assets/images/brands/2.png">
-                                </figure>
-                            </a>
-                        </div>
-                        <!-- .item -->
-                        <div class="item">
-                            <a href="shop.html">
-                                <figure>
-                                    <figcaption class="text-overlay">
-                                        <div class="info">
-                                            <h4>cannon</h4>
-                                        </div>
-                                        <!-- /.info -->
-                                    </figcaption>
-                                    <img width="145" height="50" class="img-responsive desaturate" alt="cannon" src="assets/images/brands/3.png">
-                                </figure>
-                            </a>
-                        </div>
-                        <!-- .item -->
-                        <div class="item">
-                            <a href="shop.html">
-                                <figure>
-                                    <figcaption class="text-overlay">
-                                        <div class="info">
-                                            <h4>connect</h4>
-                                        </div>
-                                        <!-- /.info -->
-                                    </figcaption>
-                                    <img width="145" height="50" class="img-responsive desaturate" alt="connect" src="assets/images/brands/4.png">
-                                </figure>
-                            </a>
-                        </div>
-                        <!-- .item -->
-                        <div class="item">
-                            <a href="shop.html">
-                                <figure>
-                                    <figcaption class="text-overlay">
-                                        <div class="info">
-                                            <h4>galaxy</h4>
-                                        </div>
-                                        <!-- /.info -->
-                                    </figcaption>
-                                    <img width="145" height="50" class="img-responsive desaturate" alt="galaxy" src="assets/images/brands/5.png">
-                                </figure>
-                            </a>
-                        </div>
-                        <!-- .item -->
-                        <div class="item">
-                            <a href="shop.html">
-                                <figure>
-                                    <figcaption class="text-overlay">
-                                        <div class="info">
-                                            <h4>gopro</h4>
-                                        </div>
-                                        <!-- /.info -->
-                                    </figcaption>
-                                    <img width="145" height="50" class="img-responsive desaturate" alt="gopro" src="assets/images/brands/6.png">
-                                </figure>
-                            </a>
-                        </div>
-                        <!-- .item -->
-                        <div class="item">
-                            <a href="shop.html">
-                                <figure>
-                                    <figcaption class="text-overlay">
-                                        <div class="info">
-                                            <h4>handspot</h4>
-                                        </div>
-                                        <!-- /.info -->
-                                    </figcaption>
-                                    <img width="145" height="50" class="img-responsive desaturate" alt="handspot" src="assets/images/brands/7.png">
-                                </figure>
-                            </a>
-                        </div>
-                        <!-- .item -->
-                        <div class="item">
-                            <a href="shop.html">
-                                <figure>
-                                    <figcaption class="text-overlay">
-                                        <div class="info">
-                                            <h4>kinova</h4>
-                                        </div>
-                                        <!-- /.info -->
-                                    </figcaption>
-                                    <img width="145" height="50" class="img-responsive desaturate" alt="kinova" src="assets/images/brands/8.png">
-                                </figure>
-                            </a>
-                        </div>
-                        <!-- .item -->
-                        <div class="item">
-                            <a href="shop.html">
-                                <figure>
-                                    <figcaption class="text-overlay">
-                                        <div class="info">
-                                            <h4>nespresso</h4>
-                                        </div>
-                                        <!-- /.info -->
-                                    </figcaption>
-                                    <img width="145" height="50" class="img-responsive desaturate" alt="nespresso" src="assets/images/brands/9.png">
-                                </figure>
-                            </a>
-                        </div>
-                        <!-- .item -->
-                        <div class="item">
-                            <a href="shop.html">
-                                <figure>
-                                    <figcaption class="text-overlay">
-                                        <div class="info">
-                                            <h4>samsung</h4>
-                                        </div>
-                                        <!-- /.info -->
-                                    </figcaption>
-                                    <img width="145" height="50" class="img-responsive desaturate" alt="samsung" src="assets/images/brands/10.png">
-                                </figure>
-                            </a>
-                        </div>
-                        <!-- .item -->
-                        <div class="item">
-                            <a href="shop.html">
-                                <figure>
-                                    <figcaption class="text-overlay">
-                                        <div class="info">
-                                            <h4>speedway</h4>
-                                        </div>
-                                        <!-- /.info -->
-                                    </figcaption>
-                                    <img width="145" height="50" class="img-responsive desaturate" alt="speedway" src="assets/images/brands/11.png">
-                                </figure>
-                            </a>
-                        </div>
-                        <!-- .item -->
-                        <div class="item">
-                            <a href="shop.html">
-                                <figure>
-                                    <figcaption class="text-overlay">
-                                        <div class="info">
-                                            <h4>yoko</h4>
-                                        </div>
-                                        <!-- /.info -->
-                                    </figcaption>
-                                    <img width="145" height="50" class="img-responsive desaturate" alt="yoko" src="assets/images/brands/12.png">
-                                </figure>
-                            </a>
-                        </div>
-                        <!-- .item -->
-                    </div>
-                </div>
-                <!-- .col-full -->
-            </section>
-            <!-- .brands-carousel -->
         </div>
         <!-- .col-full -->
         {% include 'store/footer/footer-v1.html.j2' %}

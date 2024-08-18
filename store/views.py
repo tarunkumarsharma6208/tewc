@@ -9,6 +9,8 @@ from django.db import transaction
 from .choices import *
 from .forms import *
 from django.http import JsonResponse
+from django.core.paginator import Paginator
+from django.http import QueryDict
 # Create your views here.
 
 def index(request):
@@ -31,20 +33,31 @@ def index(request):
     ).order_by('discounted')[:6]
 
     brands = Brands.objects.all().order_by('id')[:6]
-    print(trending_products)
+    # print(trending_products)
     context.update({'banner': banner, 'brands':brands, 'products': products, 'category': category, 'top_discounted_products': top_discounted_products, 'top_rated_products':top_rated_products, 'latest_products': latest_products, 'trending_products': trending_products})
     return render(request, 'store/home/index.html.j2', context)
 
 def products_list(request, category):
     context = {}
     # print(category, 9999999999999999999999999999999999999)
-    products = Product.objects.filter(category__slug=category)
+    products1 = Product.objects.filter(category__slug=category)
+    category_obj = Category.objects.get(slug=category)
     if request.user.is_authenticated:
         recently_viewed_products = RecentlyViewed.objects.filter(user=request.user).order_by('-timestamp')[:100]
     else:
         recently_viewed_products = None
     # print(11111111111, products, '0000000000000000000000000000')
-    context.update({'products': products, 'recently_viewed_products': recently_viewed_products})
+
+    product_paginator = Paginator(products1, 12)  # 10 items per page
+    page_number = request.GET.get('page')
+    products = product_paginator.get_page(page_number)
+
+    filter_params = QueryDict(mutable=True)
+    
+    pagination_url = request.path + '?' + filter_params.urlencode()
+
+
+    context.update({'products': products, 'pagination_url': pagination_url, 'recently_viewed_products': recently_viewed_products, 'category_obj': category_obj})
     return render(request, 'store/home/products-list.html.j2', context)
 
 def product_detail(request, product_slug):

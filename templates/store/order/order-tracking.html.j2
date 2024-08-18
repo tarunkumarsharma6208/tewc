@@ -35,6 +35,7 @@
                                             <thead>
                                                 <tr>
                                                     <th>SrNo.</th>
+                                                    <th>Image</th>
                                                     <th>Product Name</th>
                                                     <th>Quentity</th>
                                                     <th>Status</th>
@@ -44,6 +45,10 @@
                                                 {%for i in order%}
                                                 <tr>
                                                     <td>{{loop.index}}</td>
+                                                    <td>{%if i.product.images_product.first()%}
+                                                        <img src="{{i.product.images_product.first().image.url}}" height="60" width="120" alt="">
+                                                        {%endif%}
+                                                    </td>
                                                     <td>{{i.product.name}}</td>
                                                     <td>{{i.quantity}}</td>
                                                     <td>
